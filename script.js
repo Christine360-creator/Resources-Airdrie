@@ -11,7 +11,7 @@ const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBAoUdhR
 const searchInput = document.getElementById("resource-search");
 const categoryFilter = document.getElementById("category-filter");
 const areaFilter = document.getElementById("area-filter");
-const clearSearchButton = document.getElementById("clear-search");
+const clearSearchBtn = document.getElementById("clear-search");
 const resetButton = document.getElementById("reset-filters");
 const emptyResetButton = document.getElementById("empty-reset");
 const resultsCount = document.getElementById("results-count");
@@ -20,6 +20,7 @@ const noResults = document.getElementById("no-results");
 const loadError = document.getElementById("load-error");
 const retryLoadButton = document.getElementById("retry-load");
 
+// Modals
 const resourceDialog = document.getElementById("resource-dialog");
 const dialogTitle = document.getElementById("dialog-title");
 const dialogContent = document.getElementById("dialog-content");
@@ -42,11 +43,7 @@ let lastFocusedElement = null;
 function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, character => {
         const characters = {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
+            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
         };
         return characters[character];
     });
@@ -80,9 +77,7 @@ function parseCSV(text) {
             cell = "";
         } else if (character === "\n" && !insideQuotes) {
             row.push(cell);
-            if (row.some(value => value.trim() !== "")) {
-                rows.push(row);
-            }
+            if (row.some(value => value.trim() !== "")) rows.push(row);
             row = [];
             cell = "";
         } else {
@@ -92,9 +87,7 @@ function parseCSV(text) {
 
     if (cell !== "" || row.length > 0) {
         row.push(cell);
-        if (row.some(value => value.trim() !== "")) {
-            rows.push(row);
-        }
+        if (row.some(value => value.trim() !== "")) rows.push(row);
     }
 
     if (rows.length < 2) return [];
@@ -115,12 +108,8 @@ function safeWebsiteURL(value) {
     if (!urlText) return "";
     try {
         const url = new URL(urlText);
-        if (url.protocol === "https:" || url.protocol === "http:") {
-            return url.href;
-        }
-    } catch {
-        return "";
-    }
+        if (url.protocol === "https:" || url.protocol === "http:") return url.href;
+    } catch {}
     return "";
 }
 
@@ -141,10 +130,15 @@ function prepareResources(rows) {
             const id = String(row.id ?? "").trim();
             const organization = String(row.organization ?? "").trim();
 
+            // EXCLUDE "Crisis" from categories list
+            const categories = splitList(row.category).filter(
+                cat => !cat.toLowerCase().includes("crisis") && !cat.toLowerCase().includes("emergency")
+            );
+
             return {
                 id,
                 organization,
-                category: splitList(row.category),
+                category: categories.length > 0 ? categories : ["Community Support"],
                 area: splitList(row.area),
                 offer: String(row.offer ?? "").trim(),
                 who: String(row.who ?? "").trim(),
@@ -242,7 +236,6 @@ function createResourceCard(resource) {
         : "";
 
     const phoneLink = safePhoneLink(resource.phone);
-
     const phoneMarkup = phoneLink
         ? `<p><strong>Phone:</strong>
                <a href="${escapeHTML(phoneLink)}">${escapeHTML(resource.phone)}</a>
@@ -250,7 +243,6 @@ function createResourceCard(resource) {
         : "";
 
     const website = safeWebsiteURL(resource.website);
-
     const websiteMarkup = website
         ? `<a class="text-link" href="${escapeHTML(website)}"
                target="_blank" rel="noopener noreferrer">Website</a>`
@@ -270,9 +262,8 @@ function createResourceCard(resource) {
                 <span class="card-icon" aria-hidden="true">
                     ${escapeHTML(resource.icon)}
                 </span>
+                <h3>${escapeHTML(resource.organization)}</h3>
             </div>
-
-            <h3>${escapeHTML(resource.organization)}</h3>
 
             <div class="tag-list">
                 ${categories}
@@ -320,6 +311,8 @@ function filterResources() {
     const selectedCategory = categoryFilter.value;
     const selectedArea = areaFilter.value;
 
+    clearSearchBtn.hidden = query.length === 0;
+
     const filtered = resources.filter(resource => {
         const searchableText = [
             resource.organization,
@@ -365,48 +358,29 @@ function openResourceModal(id, triggerElement) {
     const website = safeWebsiteURL(resource.website);
     const source = safeWebsiteURL(resource.sourceUrl);
     const phoneLink = safePhoneLink(resource.phone);
+    const categories = resource.category.join(", ");
+    const areas = resource.area.join(", ");
 
-    const categories = resource.category.length ? resource.category.join(", ") : "";
-    const areas = resource.area.length ? resource.area.join(", ") : "";
+    const phoneSection = resource.phone ? `
+        <section class="detail-group">
+            <h3>Phone</h3>
+            <p>${phoneLink ? `<a href="${escapeHTML(phoneLink)}">${escapeHTML(resource.phone)}</a>` : escapeHTML(resource.phone)}</p>
+        </section>
+    ` : "";
 
-    const phoneSection = resource.phone
-        ? `
-            <section class="detail-group">
-                <h3>Phone</h3>
-                <p>
-                    ${phoneLink
-                        ? `<a href="${escapeHTML(phoneLink)}">${escapeHTML(resource.phone)}</a>`
-                        : escapeHTML(resource.phone)}
-                </p>
-            </section>
-        `
-        : "";
+    const websiteSection = website ? `
+        <section class="detail-group">
+            <h3>Website</h3>
+            <p><a href="${escapeHTML(website)}" target="_blank" rel="noopener noreferrer">Visit the organization's website</a></p>
+        </section>
+    ` : "";
 
-    const websiteSection = website
-        ? `
-            <section class="detail-group">
-                <h3>Website</h3>
-                <p>
-                    <a href="${escapeHTML(website)}" target="_blank" rel="noopener noreferrer">
-                        Visit the organization's website
-                    </a>
-                </p>
-            </section>
-        `
-        : "";
-
-    const sourceSection = source
-        ? `
-            <section class="detail-group">
-                <h3>Information source</h3>
-                <p>
-                    <a href="${escapeHTML(source)}" target="_blank" rel="noopener noreferrer">
-                        View source used to check this listing
-                    </a>
-                </p>
-            </section>
-        `
-        : "";
+    const sourceSection = source ? `
+        <section class="detail-group">
+            <h3>Information source</h3>
+            <p><a href="${escapeHTML(source)}" target="_blank" rel="noopener noreferrer">View source used to check this listing</a></p>
+        </section>
+    ` : "";
 
     const verification = resource.verifiedDate
         ? `Information last checked: ${resource.verifiedDate}`
@@ -456,7 +430,7 @@ searchInput.addEventListener("input", filterResources);
 categoryFilter.addEventListener("change", filterResources);
 areaFilter.addEventListener("change", filterResources);
 
-clearSearchButton.addEventListener("click", () => {
+clearSearchBtn.addEventListener("click", () => {
     searchInput.value = "";
     filterResources();
     searchInput.focus();
