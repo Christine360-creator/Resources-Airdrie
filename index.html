@@ -3,126 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Community Resources | Airdrie & Area</title>
-    <meta name="description" content="Quickly find community services, food hampers, housing, and family support in Airdrie.">
+
+    <title>Community Resources | Airdrie and Area</title>
+    <meta
+        name="description"
+        content="Find community, food, financial, health and other support resources in Airdrie and surrounding areas."
+    >
+
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
+
 <body>
-    <a class="skip-link" href="#search-anchor">Skip to search</a>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
 
-    <!-- IMMEDIATE CRISIS HELPLINES (One-Tap Dialing) -->
-    <aside class="crisis-bar" aria-label="Immediate Crisis Support">
-        <div class="container crisis-inner">
-            <div class="crisis-label">
-                <span class="crisis-pulse" aria-hidden="true"></span>
-                <strong>Immediate Help:</strong>
-            </div>
-            <div class="crisis-links">
-                <a href="tel:911" class="crisis-btn"><strong>911</strong> Emergency</a>
-                <a href="tel:988" class="crisis-btn"><strong>988</strong> Suicide Crisis</a>
-                <a href="tel:211" class="crisis-btn"><strong>211</strong> Community Referral</a>
-                <a href="tel:4039600644" class="crisis-btn"><strong>403-960-0644</strong> Women's Shelter</a>
-            </div>
+    <!-- CRISIS AT THE VERY TOP -->
+    <div class="top-crisis-notice" role="note" aria-label="Crisis information">
+        <div class="container">
+            <p><strong>In immediate danger or crisis?</strong> Call <strong>911</strong> for emergencies, call or text <strong>988</strong> for Suicide Crisis Helpline, or call <strong>211</strong> for 24/7 community service navigation.</p>
         </div>
-    </aside>
+    </div>
 
-    <!-- BIGGER, CLEARER SITE HEADER -->
     <header class="site-header">
         <div class="container header-inner">
-            <div class="brand-group">
-                <span class="brand-icon" aria-hidden="true">⌂</span>
-                <div>
-                    <h1 class="brand-title">Airdrie Community Resources</h1>
-                    <p class="brand-subtitle">Find local programs, food, health, and family support</p>
-                </div>
-            </div>
+            <a class="site-logo" href="index.html" aria-label="Community Resources home">
+                <span class="logo-icon" aria-hidden="true">⌂</span>
+                <span>Community Resources</span>
+            </a>
+
+            <p class="header-location">Airdrie and surrounding areas</p>
         </div>
     </header>
 
     <main id="main-content">
-        <!-- SEARCH & FILTER ANCHOR -->
-        <section class="search-section" id="search-anchor" aria-label="Directory Search and Filters">
+        <section class="hero">
             <div class="container">
-                <!-- SPEED FILTER PILLS (NO CRISIS) -->
-                <div class="speed-pills" id="quickPills" aria-label="Quick category shortcuts">
-                    <button type="button" class="pill-btn active" data-category="all">All</button>
-                    <button type="button" class="pill-btn" data-category="Food & Basic Needs">🍎 Food</button>
-                    <button type="button" class="pill-btn" data-category="Housing & Homelessness">🏠 Housing</button>
-                    <button type="button" class="pill-btn" data-category="Mental Health & Wellness">🧠 Mental Health</button>
-                    <button type="button" class="pill-btn" data-category="Family & Children">👨‍👩‍👧 Family & Youth</button>
-                    <button type="button" class="pill-btn" data-category="Seniors">👵 Seniors</button>
-                </div>
-
-                <!-- MAIN CONTROLS -->
-                <div class="search-panel">
-                    <div class="search-input-group">
-                        <label for="resource-search">Keyword Search</label>
-                        <div class="input-wrap">
-                            <span class="input-icon" aria-hidden="true">🔍</span>
-                            <input id="resource-search" type="search" placeholder="Search by name, service, or keyword…" autocomplete="off">
-                            <button type="button" id="clear-search" class="clear-btn" aria-label="Clear search" hidden>×</button>
-                        </div>
-                    </div>
-
-                    <div class="select-group">
-                        <label for="category-filter">Category</label>
-                        <select id="category-filter">
-                            <option value="all">All categories</option>
-                        </select>
-                    </div>
-
-                    <div class="select-group">
-                        <label for="area-filter">Area</label>
-                        <select id="area-filter">
-                            <option value="all">All areas</option>
-                        </select>
-                    </div>
-
-                    <button id="reset-filters" class="btn-reset" type="button">Reset Filters</button>
-                </div>
-
-                <div class="results-bar">
-                    <p id="results-count" role="status" aria-live="polite">Loading directory…</p>
-                </div>
+                <p class="eyebrow">LOCAL SUPPORT, MADE EASIER</p>
+                <h1>Find the support you need.</h1>
+                <p class="hero-description">
+                    Explore community services, support programs and helpful
+                    organizations in one place. Search by service, location or need.
+                </p>
             </div>
         </section>
 
-        <!-- DIRECTORY GRID -->
-        <section class="results-section">
+        <!-- DIRECTORY SECTION (Immediately after Hero) -->
+        <section class="directory-section" id="directory-top" aria-labelledby="directory-heading">
             <div class="container">
-                <div id="resource-grid" class="resource-grid">
-                    <p class="loading-state">Loading resources from spreadsheet…</p>
+                <div class="section-heading directory-heading">
+                    <div>
+                        <p class="eyebrow">EXPLORE THE DIRECTORY</p>
+                        <h2 id="directory-heading">Community resources</h2>
+                    </div>
+                    <p class="section-intro">
+                        Use the search and filters to narrow down the results.
+                    </p>
                 </div>
 
-                <!-- EMPTY STATE -->
+                <div class="filter-panel">
+                    <div class="search-field">
+                        <label for="resource-search">Search resources</label>
+                        <input
+                            id="resource-search"
+                            type="search"
+                            placeholder="Try food, housing, counselling…"
+                            autocomplete="off"
+                        >
+                    </div>
+
+                    <div class="filter-field">
+                        <label for="category-filter">Category</label>
+                        <select id="category-filter">
+                            <option value="">All categories</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-field">
+                        <label for="area-filter">Area</label>
+                        <select id="area-filter">
+                            <option value="">All areas</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-actions">
+                        <button id="clear-search" class="button button-secondary" type="button">
+                            Clear search
+                        </button>
+                        <button id="reset-filters" class="button button-primary" type="button">
+                            Reset all
+                        </button>
+                    </div>
+                </div>
+
+                <div class="results-heading">
+                    <p id="results-count" role="status" aria-live="polite" aria-atomic="true">
+                        Loading resources…
+                    </p>
+                </div>
+
+                <div id="resource-grid" class="resource-grid">
+                    <p class="loading-message">Loading community resources…</p>
+                </div>
+
                 <div id="no-results" class="empty-state" hidden>
                     <span class="empty-icon" aria-hidden="true">🔎</span>
                     <h3>No matching resources found</h3>
-                    <p>Try searching with simpler words or resetting your category filters.</p>
-                    <button id="empty-reset" class="btn-primary" type="button">Show All Resources</button>
+                    <p>Try a different search term or remove one of the filters.</p>
+                    <button id="empty-reset" class="button button-primary" type="button">
+                        Show all resources
+                    </button>
                 </div>
 
-                <!-- ERROR STATE -->
-                <div id="load-error" class="error-state" role="alert" hidden>
-                    <h3>Directory Unavailable</h3>
-                    <p>Unable to connect to the Google Sheet. Please check your network connection.</p>
-                    <button id="retry-load" class="btn-primary" type="button">Try Again</button>
+                <div id="load-error" class="error-message" role="alert" hidden>
+                    <h3>The directory could not be loaded</h3>
+                    <p>Check network connection and try again.</p>
+                    <button id="retry-load" class="button button-primary" type="button">
+                        Try again
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- SUGGESTION & FEEDBACK -->
+        <!-- HELP / CONTRIBUTION -->
         <section class="contribute-section">
             <div class="container">
                 <div class="contribute-card">
                     <div class="contribute-icon" aria-hidden="true">+</div>
-                    <div class="contribute-text">
-                        <h2>Help keep this directory accurate</h2>
-                        <p>Know of a local program we missed or see information that changed? Let us know.</p>
-                        <div class="contribute-actions">
-                            <button type="button" class="btn-primary" id="suggestResource">Suggest a Resource</button>
-                            <button type="button" class="btn-secondary" id="reportProblem">Report an Update</button>
+                    <div class="contribute-content">
+                        <h2>Help us keep this directory accurate</h2>
+                        <p>
+                            Found a resource we missed or noticed information
+                            that needs updating? Let us know.
+                        </p>
+                        <div class="contribute-buttons">
+                            <button type="button" class="button button-primary" id="suggestResource">
+                                Suggest a Resource
+                            </button>
+                            <button type="button" class="button button-secondary" id="reportProblem">
+                                Report a Problem
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -130,70 +149,123 @@
         </section>
     </main>
 
-    <!-- FLOATING JUMP-TO-SEARCH BUTTON -->
-    <a href="#search-anchor" class="floating-search-btn" id="floatingSearchBtn" aria-label="Jump to search and filters">
-        ↑ Search & Filters
+    <!-- BACK TO SEARCH BUTTON -->
+    <a href="#directory-top" class="back-to-search" id="backToSearch" aria-label="Back to search and filters">
+        ↑ Back to Search
     </a>
 
-    <!-- DETAILS MODAL -->
+    <!-- RESOURCE DETAILS MODAL -->
     <dialog id="resource-dialog" class="resource-dialog" aria-labelledby="dialog-title">
         <div class="dialog-header">
             <div>
-                <p class="dialog-eyebrow">RESOURCE DETAILS</p>
-                <h2 id="dialog-title">Organization</h2>
+                <p class="eyebrow">RESOURCE DETAILS</p>
+                <h2 id="dialog-title">Resource name</h2>
             </div>
-            <button id="dialog-close" class="dialog-close" type="button" aria-label="Close details">&times;</button>
+
+            <button
+                id="dialog-close"
+                class="dialog-close"
+                type="button"
+                aria-label="Close resource details"
+            >
+                &times;
+            </button>
         </div>
+
         <div id="dialog-content" class="dialog-content"></div>
+
         <div class="dialog-footer">
-            <button id="dialog-done" class="btn-primary" type="button">Close</button>
+            <button id="dialog-done" class="button button-primary" type="button">
+                Done
+            </button>
         </div>
     </dialog>
 
     <!-- CONTRIBUTION MODAL -->
-    <dialog id="contribute-dialog" class="resource-dialog" aria-labelledby="contributeModalTitle">
+    <dialog id="contributeModal" class="resource-dialog" aria-labelledby="contributeModalTitle">
         <div class="dialog-header">
             <div>
-                <p class="dialog-eyebrow">COMMUNITY INPUT</p>
+                <p class="eyebrow">COMMUNITY INPUT</p>
                 <h2 id="contributeModalTitle">Suggest a Resource</h2>
             </div>
-            <button id="contribute-close" class="dialog-close" type="button" aria-label="Close dialog">&times;</button>
+            <button id="closeContribution" class="dialog-close" type="button" aria-label="Close form">&times;</button>
         </div>
+
         <div class="dialog-content" id="contributionBody">
-            <p class="contribute-note">Submissions are reviewed and verified before appearing in the directory.</p>
+            <p>
+                Help us find useful community services and programs.
+                Your submission will be reviewed before anything is
+                added to the public directory.
+            </p>
+
             <form id="contributionForm">
-                <div class="form-row">
-                    <label for="contributionType">Action</label>
+                <div class="form-group">
+                    <label for="contributionType">
+                        What would you like to do?
+                    </label>
                     <select id="contributionType" required>
-                        <option value="suggest">Suggest a New Resource</option>
-                        <option value="report">Report Outdated Information</option>
+                        <option value="suggest">
+                            Suggest a Resource
+                        </option>
+                        <option value="report">
+                            Report a Problem
+                        </option>
                     </select>
                 </div>
-                <div class="form-row">
-                    <label for="organizationName">Resource / Organization Name</label>
-                    <input type="text" id="organizationName" required placeholder="e.g. Airdrie Food Bank">
+
+                <div class="form-group">
+                    <label for="organizationName">
+                        Organization / Resource
+                    </label>
+                    <input type="text" id="organizationName" required>
                 </div>
-                <div class="form-row">
-                    <label for="website">Website Link</label>
+
+                <div class="form-group">
+                    <label for="website">
+                        Website
+                    </label>
                     <input type="url" id="website" placeholder="https://example.com">
                 </div>
-                <div class="form-row">
-                    <label for="submissionDetails">Details & Updates</label>
-                    <textarea id="submissionDetails" rows="4" required placeholder="What services do they offer? Any phone numbers, hours, or addresses?"></textarea>
+
+                <div class="form-group">
+                    <label for="submissionDetails">
+                        Tell us about the resource or problem
+                    </label>
+                    <textarea id="submissionDetails" rows="4" required></textarea>
                 </div>
-                <div class="form-row">
-                    <label for="submitterEmail">Your Email <span>(optional)</span></label>
-                    <input type="email" id="submitterEmail" placeholder="name@example.com">
+
+                <div class="form-group">
+                    <label for="submitterName">
+                        Your name <span>(optional)</span>
+                    </label>
+                    <input type="text" id="submitterName">
                 </div>
-                <button type="submit" class="btn-primary full-width">Send Submission</button>
+
+                <div class="form-group">
+                    <label for="submitterEmail">
+                        Your email <span>(optional)</span>
+                    </label>
+                    <input type="email" id="submitterEmail">
+                </div>
+
+                <button type="submit" class="button button-primary full-width">
+                    Submit
+                </button>
             </form>
         </div>
     </dialog>
 
     <footer class="site-footer">
         <div class="container footer-inner">
-            <p><strong>Airdrie Community Resources Directory</strong></p>
-            <p class="footer-legal">Information is verified periodically. Contact organizations directly to confirm current hours, service requirements, and eligibility.</p>
+            <p>
+                Community Resources Directory
+                <span aria-hidden="true">•</span>
+                Airdrie and surrounding areas
+            </p>
+            <p class="footer-note">
+                Information is provided as a starting point. Contact organizations
+                directly to confirm current services, costs and eligibility.
+            </p>
         </div>
     </footer>
 </body>
