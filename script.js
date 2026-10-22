@@ -51,7 +51,7 @@ function escapeHTML(value) {
 
 function splitList(value) {
     return String(value ?? "")
-        .split(/[|;]/)
+        .split(/[,|;]/)
         .map(item => item.trim())
         .filter(Boolean);
 }
