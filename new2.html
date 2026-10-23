@@ -1,1 +1,2131 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coping Tools & Micro-Resets | Airdrie & Area Community Directory</title>
+    <meta name="description" content="Quick, interactive strategies and micro-resets to help you pause, regulate, and feel more balanced anytime, anywhere.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Caveat:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================================================
+           1. COLOR SYSTEM & CSS VARIABLES (LIGHT & DARK THEMES)
+           ========================================================================== */
+        :root {
+            --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-script: 'Caveat', cursive, sans-serif;
 
+            /* Light Palette - Soft organic nature tones */
+            --bg-page: #f6f8fb;
+            --bg-surface: #ffffff;
+            --bg-surface-soft: #f0f4f9;
+            --text-heading: #1e293b;
+            --text-body: #475569;
+            --text-muted: #64748b;
+            --border-subtle: #e2e8f0;
+            --border-hover: #cbd5e1;
+
+            /* Brand & Accent Colors */
+            --brand-primary: #0284c7;
+            --brand-dark: #0f2744;
+            --teal-accent: #0d9488;
+            --teal-light: #ccfbf1;
+            --teal-soft: #e6fffa;
+            --sand-warm: #fef3c7;
+            --coral-soft: #ffe4e6;
+            --purple-soft: #f3e8ff;
+            --blue-soft: #e0f2fe;
+
+            /* Crisis Bar */
+            --crisis-bg: #fff1f2;
+            --crisis-border: #fecdd3;
+            --crisis-text: #9f1239;
+            --crisis-badge: #e11d48;
+
+            /* Elevation Shadows */
+            --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+            --shadow-md: 0 4px 14px -2px rgba(15, 23, 42, 0.06);
+            --shadow-lg: 0 12px 28px -6px rgba(15, 23, 42, 0.1);
+            --shadow-modal: 0 20px 45px -10px rgba(15, 23, 42, 0.25);
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+
+            --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Dark Theme - Eye-friendly deep slate, no harsh glare */
+        [data-theme="dark"] {
+            --bg-page: #0b1120;
+            --bg-surface: #131d31;
+            --bg-surface-soft: #1e293b;
+            --text-heading: #f1f5f9;
+            --text-body: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-subtle: #24344d;
+            --border-hover: #334155;
+
+            --brand-primary: #38bdf8;
+            --brand-dark: #060911;
+            --teal-accent: #2dd4bf;
+            --teal-light: #134e4a;
+            --teal-soft: rgba(20, 184, 166, 0.12);
+
+            --crisis-bg: #2d1217;
+            --crisis-border: #4c1d24;
+            --crisis-text: #fecdd3;
+            --crisis-badge: #be123c;
+
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 14px -2px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 12px 28px -6px rgba(0, 0, 0, 0.5);
+            --shadow-modal: 0 20px 50px -10px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Base Resets */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-page);
+            color: var(--text-body);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        button, input, textarea, select {
+            font-family: inherit;
+        }
+
+        a {
+            color: var(--brand-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 16px;
+            background: var(--brand-dark);
+            color: #ffffff;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            z-index: 10000;
+            font-weight: 600;
+        }
+        .skip-link:focus {
+            top: 16px;
+        }
+
+        /* ==========================================================================
+           2. HEADER & CRISIS BANNER
+           ========================================================================== */
+        .crisis-bar {
+            background-color: var(--crisis-bg);
+            border-bottom: 1px solid var(--crisis-border);
+            padding: 10px 0;
+            font-size: 0.86rem;
+            color: var(--crisis-text);
+            transition: var(--transition);
+        }
+        .crisis-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .crisis-badge {
+            background-color: var(--crisis-badge);
+            color: #ffffff;
+            padding: 3px 9px;
+            font-weight: 700;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .crisis-links strong {
+            color: var(--crisis-text);
+            font-weight: 700;
+        }
+
+        .site-header {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            position: sticky;
+            top: 0;
+            z-index: 900;
+            transition: var(--transition);
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+        }
+        .brand-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: var(--text-heading);
+            letter-spacing: -0.01em;
+        }
+        .brand-link:hover {
+            text-decoration: none;
+        }
+        .brand-icon {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, #0284c7, #0d9488);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-size: 1.05rem;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .theme-toggle-btn {
+            background: var(--bg-surface-soft);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-heading);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+        .theme-toggle-btn:hover {
+            border-color: var(--border-hover);
+            transform: scale(1.05);
+        }
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-surface-soft);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-heading);
+            padding: 8px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .btn-back:hover {
+            background: var(--border-subtle);
+            text-decoration: none;
+        }
+
+        /* ==========================================================================
+           3. HERO ILLUSTRATION SECTION (Matches Mockup Soft Mountains)
+           ========================================================================== */
+        .hero {
+            position: relative;
+            background: linear-gradient(180deg, #dbeafe 0%, #e0f2fe 30%, #ecfdf5 70%, var(--bg-page) 100%);
+            padding: 56px 0 36px;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border-subtle);
+            transition: var(--transition);
+        }
+        [data-theme="dark"] .hero {
+            background: linear-gradient(180deg, #0f1c30 0%, #11263d 30%, #0d282f 70%, var(--bg-page) 100%);
+        }
+        .hero-sun {
+            position: absolute;
+            top: 24px;
+            right: 12%;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, #fef08a 0%, rgba(253, 224, 71, 0.4) 60%, rgba(253, 224, 71, 0) 80%);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.8;
+            filter: blur(4px);
+        }
+        .hero-svg-landscape {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 110px;
+            pointer-events: none;
+            opacity: 0.35;
+        }
+        [data-theme="dark"] .hero-svg-landscape {
+            opacity: 0.15;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 680px;
+        }
+        .eyebrow {
+            display: inline-block;
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #0369a1;
+            margin-bottom: 12px;
+        }
+        [data-theme="dark"] .eyebrow {
+            color: #38bdf8;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 4.5vw, 2.85rem);
+            font-weight: 800;
+            line-height: 1.15;
+            color: var(--text-heading);
+            letter-spacing: -0.02em;
+            margin-bottom: 14px;
+        }
+        .hero p {
+            font-size: 1.08rem;
+            color: var(--text-body);
+            margin-bottom: 24px;
+            line-height: 1.55;
+        }
+
+        /* Surprise Me Button with Script Note */
+        .surprise-wrapper {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .btn-surprise {
+            background: #0d9488;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: var(--radius-full);
+            font-size: 0.98rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+        .btn-surprise:hover {
+            background: #0f766e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(13, 148, 136, 0.45);
+        }
+        .surprise-note {
+            font-family: var(--font-script);
+            font-size: 1.35rem;
+            color: #0284c7;
+            line-height: 1.1;
+            transform: rotate(-2deg);
+        }
+        [data-theme="dark"] .surprise-note {
+            color: #38bdf8;
+        }
+
+        /* ==========================================================================
+           4. 3-TIER FILTER BAR (Time, Activity, What I Need)
+           ========================================================================== */
+        .filters-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 22px 24px;
+            margin: 28px 0 36px;
+            box-shadow: var(--shadow-sm);
+        }
+        .filters-title {
+            font-size: 0.82rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .filter-label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .pill-cluster {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .pill-btn {
+            background: var(--bg-surface-soft);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-body);
+            padding: 6px 13px;
+            border-radius: var(--radius-full);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .pill-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text-heading);
+        }
+        .pill-btn.active {
+            background: var(--brand-primary);
+            color: #ffffff;
+            border-color: var(--brand-primary);
+            box-shadow: 0 2px 8px rgba(2, 132, 199, 0.28);
+        }
+        .filter-footer-bar {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px dashed var(--border-subtle);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.84rem;
+            color: var(--text-muted);
+        }
+        .btn-clear-filters {
+            background: none;
+            border: none;
+            color: var(--brand-primary);
+            font-size: 0.84rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .btn-clear-filters:hover {
+            text-decoration: underline;
+        }
+
+        /* ==========================================================================
+           5. CARDS SECTIONS (Quick Tools & Full Toolkit)
+           ========================================================================== */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-heading);
+            letter-spacing: -0.01em;
+        }
+        .section-tagline {
+            font-family: var(--font-script);
+            font-size: 1.35rem;
+            color: #0d9488;
+        }
+        [data-theme="dark"] .section-tagline {
+            color: #2dd4bf;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+
+        /* Individual Card */
+        .tool-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 22px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: var(--transition);
+            overflow: hidden;
+        }
+        .tool-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--border-hover);
+        }
+        .card-illu {
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+            font-size: 2.8rem;
+            background: var(--bg-surface-soft);
+            user-select: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Distinct Pastel Card Headers matching the mockup palette */
+        .card-theme-waves .card-illu { background: linear-gradient(135deg, #e0f2fe, #bae6fd); color: #0284c7; }
+        .card-theme-plant .card-illu { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
+        .card-theme-heart .card-illu { background: linear-gradient(135deg, #fae8ff, #f5d0fe); color: #a855f7; }
+        .card-theme-art .card-illu { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+        .card-theme-sun .card-illu { background: linear-gradient(135deg, #ffedd5, #fed7aa); color: #ea580c; }
+        .card-theme-note .card-illu { background: linear-gradient(135deg, #ede9fe, #ddd6fe); color: #7c3aed; }
+        .card-theme-weather .card-illu { background: linear-gradient(135deg, #e0f2fe, #fef08a); color: #0284c7; }
+        .card-theme-dice .card-illu { background: linear-gradient(135deg, #ffe4e6, #fecdd3); color: #e11d48; }
+
+        .card-body {
+            flex: 1;
+            margin-bottom: 18px;
+        }
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 6px;
+        }
+        .card-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        /* Pill badges for full toolkit */
+        .card-badge-row {
+            display: flex;
+            gap: 6px;
+            margin: 8px 0 10px;
+            flex-wrap: wrap;
+        }
+        .card-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+        .badge-cyan { background: var(--teal-soft); color: var(--teal-accent); }
+        .badge-purple { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+        .badge-coral { background: rgba(225, 29, 72, 0.1); color: #e11d48; }
+
+        /* Card Action Buttons */
+        .card-btn {
+            background: #0284c7;
+            color: #ffffff;
+            border: none;
+            padding: 9px 16px;
+            border-radius: var(--radius-full);
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: var(--transition);
+            width: 100%;
+        }
+        .card-btn:hover {
+            background: #0369a1;
+        }
+        .card-btn-teal { background: #0d9488; }
+        .card-btn-teal:hover { background: #0f766e; }
+        .card-btn-purple { background: #9333ea; }
+        .card-btn-purple:hover { background: #7e22ce; }
+        .card-btn-amber { background: #d97706; }
+        .card-btn-amber:hover { background: #b45309; }
+        .card-btn-rose { background: #e11d48; }
+        .card-btn-rose:hover { background: #be123c; }
+
+        /* ==========================================================================
+           6. ACCESSIBLE MODAL SYSTEM (For focused immersion)
+           ========================================================================== */
+        dialog {
+            border: none;
+            border-radius: var(--radius-lg);
+            background: var(--bg-surface);
+            color: var(--text-body);
+            width: 90%;
+            max-width: 620px;
+            margin: auto;
+            padding: 0;
+            box-shadow: var(--shadow-modal);
+            outline: none;
+            overflow: hidden;
+        }
+        dialog::backdrop {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(4px);
+        }
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-surface);
+        }
+        .modal-title-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .modal-icon {
+            font-size: 1.6rem;
+        }
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-heading);
+        }
+        .btn-modal-close {
+            background: var(--bg-surface-soft);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        .btn-modal-close:hover {
+            color: var(--text-heading);
+            background: var(--border-subtle);
+        }
+        .modal-body {
+            padding: 24px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        /* ==========================================================================
+           7. TOOL SPECIFIC COMPONENTS
+           ========================================================================== */
+        /* Waves Canvas */
+        .waves-canvas-wrap {
+            width: 100%;
+            height: 240px;
+            border-radius: var(--radius-md);
+            background: #0f172a;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        #wavesCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .canvas-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        /* Mandala / Coloring SVG */
+        .mandala-wrap {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 18px;
+        }
+        .mandala-svg {
+            width: 260px;
+            height: 260px;
+            touch-action: manipulation;
+        }
+        .mandala-svg path, .mandala-svg circle {
+            cursor: pointer;
+            transition: fill 0.25s ease;
+            stroke: #334155;
+            stroke-width: 2;
+        }
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .color-dot {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .color-dot.active {
+            border-color: var(--text-heading);
+            transform: scale(1.15);
+        }
+
+        /* 3D Dice Container */
+        .dice-area {
+            text-align: center;
+            padding: 24px 0;
+        }
+        .dice-cube {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            background: #e11d48;
+            color: #ffffff;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            font-weight: 800;
+            box-shadow: 0 10px 20px rgba(225, 29, 72, 0.35);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .dice-rolling {
+            animation: rollAnimation 0.6s infinite linear;
+        }
+        @keyframes rollAnimation {
+            0% { transform: rotate(0deg) scale(0.9); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(0.9); }
+        }
+
+        /* Breathing Pacer Visualizer */
+        .pacer-wrap {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .pacer-orb-ring {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 16px auto;
+            border-radius: 50%;
+            border: 2px dashed var(--teal-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pacer-orb {
+            width: 110px;
+            height: 110px;
+            background: radial-gradient(circle, #2dd4bf, #0d9488);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            box-shadow: 0 0 35px rgba(13, 148, 136, 0.45);
+            transition: transform 1s ease-in-out;
+        }
+        .pacer-phase { font-size: 1.1rem; font-weight: 700; }
+        .pacer-sec { font-size: 1.7rem; font-weight: 800; }
+
+        /* Weather selector */
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .weather-btn {
+            background: var(--bg-surface-soft);
+            border: 2px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .weather-btn:hover, .weather-btn.active {
+            border-color: var(--brand-primary);
+            background: var(--teal-soft);
+        }
+        .weather-emoji { font-size: 2.2rem; display: block; margin-bottom: 6px; }
+
+        /* Checklist 5-4-3-2-1 */
+        .check-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            margin-bottom: 10px;
+            background: var(--bg-surface-soft);
+            cursor: pointer;
+        }
+        .check-step input {
+            width: 20px;
+            height: 20px;
+            margin-top: 3px;
+            accent-color: var(--teal-accent);
+        }
+
+        /* Generic Big Display for Generators */
+        .generator-card {
+            background: var(--bg-surface-soft);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .gen-main-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-heading);
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .gen-sub-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* 3 Things Inputs */
+        .gratitude-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .gratitude-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            background: var(--bg-surface);
+            color: var(--text-heading);
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================================
+           8. CLINICAL DISCLAIMER & FOOTER
+           ========================================================================== */
+        .disclaimer-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-left: 4px solid var(--teal-accent);
+            padding: 20px 24px;
+            border-radius: var(--radius-md);
+            margin-bottom: 50px;
+            font-size: 0.92rem;
+            color: var(--text-body);
+        }
+
+        .site-footer {
+            background: var(--brand-dark);
+            color: #94a3b8;
+            padding: 40px 0;
+            font-size: 0.88rem;
+            text-align: center;
+        }
+        .site-footer a {
+            color: #38bdf8;
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 36px 0 28px; }
+            .hero-sun { display: none; }
+            .section-header { flex-direction: column; gap: 4px; }
+            .weather-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <!-- 1. CRISIS ALERT BANNER -->
+    <aside class="crisis-bar" aria-label="Immediate crisis assistance">
+        <div class="container crisis-inner">
+            <div class="crisis-links">
+                <span class="crisis-badge">Immediate Help</span>
+                <span>In life-threatening danger, call <strong>911</strong>. For suicide crisis support, call/text <strong>988</strong>. For Youth Help, text <strong>CONNECT to 686868</strong>.</span>
+            </div>
+            <a href="index.html" style="font-weight: 700; color: var(--crisis-text); text-decoration: underline;">Full Community Directory →</a>
+        </div>
+    </aside>
+
+    <!-- 2. SITE HEADER -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand-link" href="index.html" aria-label="Community Resources Directory Home">
+                <span class="brand-icon" aria-hidden="true">🌱</span>
+                <span>Community Resources</span>
+            </a>
+            <div class="header-actions">
+                <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle light or dark theme" title="Toggle theme">
+                    <span id="themeIcon">🌙</span>
+                </button>
+                <a class="btn-back" href="index.html">← Back to Directory</a>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- 3. HERO SECTION (ILLUSTRATED SOFT MOUNTAIN VIBE) -->
+        <section class="hero">
+            <div class="hero-sun" aria-hidden="true"></div>
+            <!-- Landscape silhouette SVG -->
+            <svg class="hero-svg-landscape" preserveAspectRatio="none" viewBox="0 0 1200 120" fill="none">
+                <path d="M0,60 C150,90 350,20 500,50 C650,80 900,10 1200,45 L1200,120 L0,120 Z" fill="#0d9488" fill-opacity="0.3"/>
+                <path d="M0,80 C200,40 450,95 700,60 C950,25 1050,75 1200,85 L1200,120 L0,120 Z" fill="#0284c7" fill-opacity="0.25"/>
+            </svg>
+
+            <div class="container">
+                <div class="hero-content">
+                    <span class="eyebrow">SELF-REGULATION & DE-ESCALATION</span>
+                    <h1>Coping Tools &<br>Micro-Resets</h1>
+                    <p>Quick and easy strategies to help you pause, regulate, and feel more balanced — anytime, anywhere.</p>
+                    
+                    <div class="surprise-wrapper">
+                        <button id="surpriseMeBtn" class="btn-surprise">
+                            <span>✨</span>
+                            <span>Surprise Me!</span>
+                        </button>
+                        <span class="surprise-note">Not sure what to try? Let us pick for you!</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- 4. THREE-WAY FILTER BAR -->
+            <section class="filters-section" aria-label="Tool category filters">
+                <div class="filters-title">Find what you need:</div>
+                <div class="filters-grid">
+                    <!-- Filter 1: Time -->
+                    <div class="filter-group">
+                        <span class="filter-label">⏱️ Time:</span>
+                        <div class="pill-cluster" data-filter-group="time">
+                            <button class="pill-btn active" data-val="all">All</button>
+                            <button class="pill-btn" data-val="under1">Under 1 min</button>
+                            <button class="pill-btn" data-val="2-3min">2–3 min</button>
+                            <button class="pill-btn" data-val="5plus">5+ min</button>
+                        </div>
+                    </div>
+
+                    <!-- Filter 2: Activity -->
+                    <div class="filter-group">
+                        <span class="filter-label">🎯 Activity:</span>
+                        <div class="pill-cluster" data-filter-group="activity">
+                            <button class="pill-btn active" data-val="all">All</button>
+                            <button class="pill-btn" data-val="watch">👁️ Watch</button>
+                            <button class="pill-btn" data-val="move">⚡ Move</button>
+                            <button class="pill-btn" data-val="think">💡 Think</button>
+                            <button class="pill-btn" data-val="create">🎨 Create</button>
+                        </div>
+                    </div>
+
+                    <!-- Filter 3: What I Need -->
+                    <div class="filter-group">
+                        <span class="filter-label">🌿 What I need:</span>
+                        <div class="pill-cluster" data-filter-group="need">
+                            <button class="pill-btn active" data-val="all">All</button>
+                            <button class="pill-btn" data-val="break">Take a break</button>
+                            <button class="pill-btn" data-val="focus">Focus</button>
+                            <button class="pill-btn" data-val="encourage">Feel encouraged</button>
+                            <button class="pill-btn" data-val="present">Be present</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-footer-bar">
+                    <span id="filterCount">Showing all 14 tools</span>
+                    <button id="clearFiltersBtn" class="btn-clear-filters">Reset filters</button>
+                </div>
+            </section>
+
+            <!-- 5. QUICK INTERACTIVE TOOLS (TOP 8 CARDS) -->
+            <section aria-labelledby="quick-tools-heading">
+                <div class="section-header">
+                    <h2 id="quick-tools-heading">Quick Interactive Tools</h2>
+                    <span class="section-tagline">Small moments. Big difference.</span>
+                </div>
+
+                <div class="cards-grid" id="quickToolsGrid">
+                    <!-- 1. Watch the Waves -->
+                    <article class="tool-card card-theme-waves" data-time="under1,2-3min" data-activity="watch" data-need="break,present" data-modal="modal-waves">
+                        <div class="card-illu" aria-hidden="true">🌊</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Watch the Waves</h3>
+                            <p class="card-desc">Relax with gentle, rhythmic moving visuals and soothing wave motion.</p>
+                        </div>
+                        <button class="card-btn" type="button">Start →</button>
+                    </article>
+
+                    <!-- 2. Random Self-Care -->
+                    <article class="tool-card card-theme-plant" data-time="under1" data-activity="think" data-need="break,encourage" data-modal="modal-selfcare">
+                        <div class="card-illu" aria-hidden="true">🌱</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Random Self-Care</h3>
+                            <p class="card-desc">Get a simple, realistic self-care idea you can achieve immediately.</p>
+                        </div>
+                        <button class="card-btn card-btn-teal" type="button">Get Idea →</button>
+                    </article>
+
+                    <!-- 3. Daily Affirmations -->
+                    <article class="tool-card card-theme-heart" data-time="under1" data-activity="think" data-need="encourage" data-modal="modal-affirmations">
+                        <div class="card-illu" aria-hidden="true">💜</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Daily Affirmations</h3>
+                            <p class="card-desc">Read an honest, grounded message to quiet self-criticism.</p>
+                        </div>
+                        <button class="card-btn card-btn-purple" type="button">Show Me →</button>
+                    </article>
+
+                    <!-- 4. Colour & Pattern -->
+                    <article class="tool-card card-theme-art" data-time="2-3min,5plus" data-activity="create" data-need="focus,break" data-modal="modal-colour">
+                        <div class="card-illu" aria-hidden="true">🌸</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Colour & Pattern</h3>
+                            <p class="card-desc">Tap to color a gentle mandala pattern for quiet, hands-on focus.</p>
+                        </div>
+                        <button class="card-btn card-btn-amber" type="button">Get Creative →</button>
+                    </article>
+
+                    <!-- 5. Mindful Moments -->
+                    <article class="tool-card card-theme-sun" data-time="under1,2-3min" data-activity="watch,think" data-need="present,focus" data-modal="modal-mindful">
+                        <div class="card-illu" aria-hidden="true">☀️</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Mindful Moments</h3>
+                            <p class="card-desc">Quick, guided observation prompts to anchor yourself in the room.</p>
+                        </div>
+                        <button class="card-btn" type="button">Try It →</button>
+                    </article>
+
+                    <!-- 6. Gratitude & Reflection -->
+                    <article class="tool-card card-theme-note" data-time="2-3min" data-activity="create,think" data-need="encourage,present" data-modal="modal-gratitude">
+                        <div class="card-illu" aria-hidden="true">📝</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Gratitude & Reflection</h3>
+                            <p class="card-desc">Simple three-item micro-scratchpad to notice today's comforts.</p>
+                        </div>
+                        <button class="card-btn card-btn-purple" type="button">Start Writing →</button>
+                    </article>
+
+                    <!-- 7. Pick Your Weather -->
+                    <article class="tool-card card-theme-weather" data-time="under1" data-activity="think" data-need="break,present" data-modal="modal-weather">
+                        <div class="card-illu" aria-hidden="true">⛅</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Pick Your Weather</h3>
+                            <p class="card-desc">Choose how you feel internally and receive a tailored regulation strategy.</p>
+                        </div>
+                        <button class="card-btn card-btn-teal" type="button">Get Started →</button>
+                    </article>
+
+                    <!-- 8. Roll for a Reset -->
+                    <article class="tool-card card-theme-dice" data-time="under1" data-activity="move,think" data-need="break,present" data-modal="modal-dice">
+                        <div class="card-illu" aria-hidden="true">🎲</div>
+                        <div class="card-body">
+                            <h3 class="card-title">Roll for a Reset</h3>
+                            <p class="card-desc">Let chance pick a swift, playful 30-second somatic action for you.</p>
+                        </div>
+                        <button class="card-btn card-btn-rose" type="button">Roll the Dice →</button>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 6. EXPLORE THE FULL TOOLKIT (BOTTOM 6 CARDS) -->
+            <section aria-labelledby="full-toolkit-heading">
+                <div class="section-header">
+                    <div>
+                        <h2 id="full-toolkit-heading">Explore the Full Toolkit</h2>
+                        <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 4px;">Each tool is designed to be quick, simple, and easy to use — whenever you need it.</p>
+                    </div>
+                </div>
+
+                <div class="cards-grid" id="fullToolkitGrid">
+                    <!-- 9. Breathing Techniques -->
+                    <article class="tool-card" data-time="2-3min,5plus" data-activity="watch,move" data-need="break,focus,present" data-modal="modal-breathing">
+                        <div>
+                            <div class="card-illu" style="background: var(--blue-soft); color: #0284c7;">🌬️</div>
+                            <h3 class="card-title">Breathing Techniques</h3>
+                            <div class="card-badge-row">
+                                <span class="card-badge badge-cyan">Nervous System</span>
+                                <span class="card-badge badge-purple">Calm</span>
+                            </div>
+                            <p class="card-desc">Animated visual guide for Box Breathing (4-4-4-4), 4-7-8 Sleep, and the Physiological Sigh.</p>
+                        </div>
+                        <button class="card-btn" style="margin-top: 14px;" type="button">Open Tool →</button>
+                    </article>
+
+                    <!-- 10. Sensory Grounding -->
+                    <article class="tool-card" data-time="2-3min" data-activity="think,watch" data-need="present,focus" data-modal="modal-grounding">
+                        <div>
+                            <div class="card-illu" style="background: var(--teal-soft); color: #0d9488;">🌿</div>
+                            <h3 class="card-title">Sensory Grounding</h3>
+                            <div class="card-badge-row">
+                                <span class="card-badge badge-cyan">Present Moment</span>
+                                <span class="card-badge badge-coral">Panic Halt</span>
+                            </div>
+                            <p class="card-desc">5-4-3-2-1 sensory scan checklist to reconnect your focus to the room right here and now.</p>
+                        </div>
+                        <button class="card-btn card-btn-teal" style="margin-top: 14px;" type="button">Open Tool →</button>
+                    </article>
+
+                    <!-- 11. Mental Distractions -->
+                    <article class="tool-card" data-time="under1,2-3min" data-activity="think" data-need="focus,break" data-modal="modal-distraction">
+                        <div>
+                            <div class="card-illu" style="background: var(--purple-soft); color: #9333ea;">🧠</div>
+                            <h3 class="card-title">Mental Distractions</h3>
+                            <div class="card-badge-row">
+                                <span class="card-badge badge-purple">Brain Focus</span>
+                                <span class="card-badge badge-cyan">Loop Breaker</span>
+                            </div>
+                            <p class="card-desc">Alphabet categories and Countdown by 7s to pull energy away from the panic center.</p>
+                        </div>
+                        <button class="card-btn card-btn-purple" style="margin-top: 14px;" type="button">Open Tool →</button>
+                    </article>
+
+                    <!-- 12. Somatic Movement -->
+                    <article class="tool-card" data-time="under1,2-3min" data-activity="move" data-need="break,present" data-modal="modal-somatic">
+                        <div>
+                            <div class="card-illu" style="background: var(--coral-soft); color: #e11d48;">⚡</div>
+                            <h3 class="card-title">Somatic Movement</h3>
+                            <div class="card-badge-row">
+                                <span class="card-badge badge-coral">Adrenaline Release</span>
+                                <span class="card-badge badge-cyan">Physical</span>
+                            </div>
+                            <p class="card-desc">Tension release exercises: wall pushes, cold water dive reflex, and bilateral butterfly tapping.</p>
+                        </div>
+                        <button class="card-btn card-btn-rose" style="margin-top: 14px;" type="button">Open Tool →</button>
+                    </article>
+
+                    <!-- 13. Realistic Reframing -->
+                    <article class="tool-card" data-time="under1,2-3min" data-activity="think" data-need="encourage" data-modal="modal-reframing">
+                        <div>
+                            <div class="card-illu" style="background: var(--sand-warm); color: #d97706;">💙</div>
+                            <h3 class="card-title">Realistic Reframing</h3>
+                            <div class="card-badge-row">
+                                <span class="card-badge badge-cyan">Perspective</span>
+                                <span class="card-badge badge-purple">Micro-Habit</span>
+                            </div>
+                            <p class="card-desc">Honest, grounded prompts to notice basic conveniences without forced toxic positivity.</p>
+                        </div>
+                        <button class="card-btn card-btn-amber" style="margin-top: 14px;" type="button">Open Tool →</button>
+                    </article>
+
+                    <!-- 14. Daily 5-Minute Routine -->
+                    <article class="tool-card" data-time="5plus" data-activity="move,think" data-need="present,focus" data-modal="modal-routine">
+                        <div>
+                            <div class="card-illu" style="background: var(--blue-soft); color: #0284c7;">⏱️</div>
+                            <h3 class="card-title">Daily 5-Minute Routine</h3>
+                            <div class="card-badge-row">
+                                <span class="card-badge badge-cyan">Structure</span>
+                                <span class="card-badge badge-purple">Daily Flow</span>
+                            </div>
+                            <p class="card-desc">Step-by-step guidance for a 1-minute morning reset, 2-minute midday pause, and 2-minute night calm.</p>
+                        </div>
+                        <button class="card-btn" style="margin-top: 14px;" type="button">Open Tool →</button>
+                    </article>
+                </div>
+            </section>
+
+            <!-- 7. CLINICAL DISCLAIMER -->
+            <section class="disclaimer-section" role="note">
+                <p><strong>Please Note:</strong> These coping micro-resets and self-regulation activities are provided for general everyday stress management, sensory grounding, and mindful pauses. They are <strong>not</strong> a substitute for clinical medical advice, psychiatric assessment, or emergency crisis care. If you are in immediate emotional pain or danger, please reach out to <strong>988</strong> (Suicide Crisis Helpline) or <strong>211</strong> (Alberta Community Care).</p>
+            </section>
+        </div>
+    </main>
+
+    <!-- 8. FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <p><strong>Airdrie Community Resources Directory & Coping Companion</strong></p>
+            <p style="margin-top: 6px;">For food access, family support, or mental health navigation, visit our <a href="index.html">Main Directory</a> or call <strong>211</strong>.</p>
+        </div>
+    </footer>
+
+    <!-- ==========================================================================
+       9. INTERACTIVE MODAL DIALOGS
+       ========================================================================== -->
+
+    <!-- MODAL 1: Watch the Waves -->
+    <dialog id="modal-waves">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">🌊</span>
+                <h3 class="modal-title">Watch the Waves</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="waves-canvas-wrap">
+                <canvas id="wavesCanvas"></canvas>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
+                Rest your eyes and observe the layered motion. Match your breathing gently with the crest and fall of the tide.
+            </p>
+            <div class="canvas-controls">
+                <button id="toggleWavesBtn" class="pill-btn active">Pause Waves</button>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">Calm Frequency: ~6 cycles/min</span>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- MODAL 2: Random Self-Care -->
+    <dialog id="modal-selfcare">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">🌱</span>
+                <h3 class="modal-title">Random Self-Care Idea</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="generator-card">
+                <div id="selfCareText" class="gen-main-text">Take 4 slow sips of cool water and notice the temperature in your throat.</div>
+                <div class="gen-sub-text">A micro-action you can finish in under 60 seconds.</div>
+            </div>
+            <button id="newSelfCareBtn" class="card-btn card-btn-teal">Give Me Another Idea →</button>
+        </div>
+    </dialog>
+
+    <!-- MODAL 3: Daily Affirmations -->
+    <dialog id="modal-affirmations">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">💜</span>
+                <h3 class="modal-title">Daily Affirmation</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="generator-card">
+                <div id="affirmationText" class="gen-main-text">"You do not have to figure out your entire future today. Just focus on taking care of the next twenty minutes."</div>
+                <div class="gen-sub-text">Grounded, realistic, and zero pressure.</div>
+            </div>
+            <button id="newAffirmationBtn" class="card-btn card-btn-purple">Read Another Message →</button>
+        </div>
+    </dialog>
+
+    <!-- MODAL 4: Colour & Pattern -->
+    <dialog id="modal-colour">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">🌸</span>
+                <h3 class="modal-title">Colour & Pattern</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="mandala-wrap">
+                <p style="font-size: 0.88rem; color: var(--text-muted); text-align: center;">
+                    Select a soft palette color below, then tap any petal or ring in the shape to fill it.
+                </p>
+                <svg id="mandalaSvg" class="mandala-svg" viewBox="0 0 200 200">
+                    <circle id="mandala-center" cx="100" cy="100" r="22" fill="#ffffff" stroke="#334155" stroke-width="2"/>
+                    <!-- 8 Surrounding Petals -->
+                    <path class="mandala-petal" d="M100,78 C85,45 115,45 100,78 Z" fill="#ffffff"/>
+                    <path class="mandala-petal" d="M100,122 C85,155 115,155 100,122 Z" fill="#ffffff"/>
+                    <path class="mandala-petal" d="M78,100 C45,85 45,115 78,100 Z" fill="#ffffff"/>
+                    <path class="mandala-petal" d="M122,100 C155,85 155,115 122,100 Z" fill="#ffffff"/>
+                    <path class="mandala-petal" d="M84,84 C60,60 75,45 84,84 Z" fill="#ffffff"/>
+                    <path class="mandala-petal" d="M116,84 C140,60 125,45 116,84 Z" fill="#ffffff"/>
+                    <path class="mandala-petal" d="M84,116 C60,140 75,155 84,116 Z" fill="#ffffff"/>
+                    <path class="mandala-petal" d="M116,116 C140,140 125,155 116,116 Z" fill="#ffffff"/>
+                </svg>
+                <div class="color-palette" id="colorPalette">
+                    <button class="color-dot active" style="background: #99f6e4;" data-color="#99f6e4" aria-label="Soft Mint"></button>
+                    <button class="color-dot" style="background: #bae6fd;" data-color="#bae6fd" aria-label="Soft Sky"></button>
+                    <button class="color-dot" style="background: #fbcfe8;" data-color="#fbcfe8" aria-label="Soft Rose"></button>
+                    <button class="color-dot" style="background: #fde68a;" data-color="#fde68a" aria-label="Soft Butter"></button>
+                    <button class="color-dot" style="background: #ddd6fe;" data-color="#ddd6fe" aria-label="Soft Lavender"></button>
+                    <button class="color-dot" style="background: #ffffff; border-color: #cbd5e1;" data-color="#ffffff" aria-label="White/Eraser"></button>
+                </div>
+                <button id="resetMandalaBtn" class="pill-btn">Reset All Colors</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- MODAL 5: Mindful Moments -->
+    <dialog id="modal-mindful">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">☀️</span>
+                <h3 class="modal-title">Mindful Moments</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="generator-card">
+                <div id="mindfulText" class="gen-main-text">Find 3 different physical textures within arm's reach (e.g., denim, cold glass, smooth wood).</div>
+                <div class="gen-sub-text">Notice the contrast between each surface under your fingertips.</div>
+            </div>
+            <button id="newMindfulBtn" class="card-btn">Give Me Another Prompt →</button>
+        </div>
+    </dialog>
+
+    <!-- MODAL 6: Gratitude & Reflection -->
+    <dialog id="modal-gratitude">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">📝</span>
+                <h3 class="modal-title">3 Specific Good Things</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
+                Avoid generic concepts. Write 3 small, real moments you appreciated today:
+            </p>
+            <div class="gratitude-input-group">
+                <input type="text" id="g1" class="gratitude-input" placeholder="1. A pleasant taste, drink, or warmth...">
+                <input type="text" id="g2" class="gratitude-input" placeholder="2. A task you completed or avoided...">
+                <input type="text" id="g3" class="gratitude-input" placeholder="3. A brief friendly moment or quiet pause...">
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <button id="saveGratitudeBtn" class="card-btn card-btn-purple">Save Note (This Session)</button>
+                <button id="clearGratitudeBtn" class="pill-btn">Clear</button>
+            </div>
+            <p id="gratitudeFeedback" style="font-size: 0.84rem; color: var(--teal-accent); margin-top: 10px; display: none;">✓ Saved for your browser session.</p>
+        </div>
+    </dialog>
+
+    <!-- MODAL 7: Pick Your Weather -->
+    <dialog id="modal-weather">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">⛅</span>
+                <h3 class="modal-title">Pick Your Weather</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 14px;">
+                How does your internal mind feel right now? Tap a weather pattern:
+            </p>
+            <div class="weather-grid">
+                <button class="weather-btn" data-weather="storm">
+                    <span class="weather-emoji">⛈️</span>
+                    <strong>Stormy / Panic</strong>
+                </button>
+                <button class="weather-btn" data-weather="fog">
+                    <span class="weather-emoji">🌫️</span>
+                    <strong>Foggy / Numb</strong>
+                </button>
+                <button class="weather-btn" data-weather="wind">
+                    <span class="weather-emoji">💨</span>
+                    <strong>Windy / Restless</strong>
+                </button>
+                <button class="weather-btn" data-weather="sun">
+                    <span class="weather-emoji">🌤️</span>
+                    <strong>Sun & Cloud / Tired</strong>
+                </button>
+            </div>
+            <div id="weatherResult" class="generator-card" style="display: none;">
+                <div id="weatherAdviceTitle" class="gen-main-text">Suggested Action</div>
+                <p id="weatherAdviceBody" class="gen-sub-text">Advice will appear here.</p>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- MODAL 8: Roll for a Reset -->
+    <dialog id="modal-dice">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">🎲</span>
+                <h3 class="modal-title">Roll for a Reset</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="dice-area">
+                <div id="diceCube" class="dice-cube">?</div>
+                <div id="diceResultText" class="gen-main-text">Tap the button to roll the die!</div>
+                <div id="diceSubText" class="gen-sub-text">Let random chance make the choice for your next 30 seconds.</div>
+            </div>
+            <button id="rollDiceBtn" class="card-btn card-btn-rose">Roll the Die 🎲</button>
+        </div>
+    </dialog>
+
+    <!-- MODAL 9: Breathing Techniques -->
+    <dialog id="modal-breathing">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">🌬️</span>
+                <h3 class="modal-title">Breathing Visualizer</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div style="display: flex; gap: 6px; justify-content: center; margin-bottom: 16px; flex-wrap: wrap;">
+                <button class="pill-btn active breath-mode-btn" data-bmode="box">Box (4-4-4-4)</button>
+                <button class="pill-btn breath-mode-btn" data-bmode="sigh">Physiological Sigh</button>
+                <button class="pill-btn breath-mode-btn" data-bmode="sleep">4-7-8 Deep Calm</button>
+            </div>
+            <div class="pacer-wrap">
+                <div class="pacer-orb-ring">
+                    <div id="pacerOrb" class="pacer-orb">
+                        <span id="pacerPhaseText" class="pacer-phase">Ready</span>
+                        <span id="pacerSecondsText" class="pacer-sec">--</span>
+                    </div>
+                </div>
+                <p id="pacerDescription" style="font-size: 0.88rem; color: var(--text-muted); margin: 12px 0 16px;">
+                    Equal 4-second stages to reset resting heart rate and stabilize your system.
+                </p>
+                <div style="display: flex; gap: 10px; justify-content: center;">
+                    <button id="togglePacerBtn" class="card-btn card-btn-teal" style="width: auto; padding: 10px 24px;">Start Exercise</button>
+                    <button id="resetPacerBtn" class="pill-btn">Reset</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- MODAL 10: Sensory Grounding (5-4-3-2-1) -->
+    <dialog id="modal-grounding">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">🌿</span>
+                <h3 class="modal-title">5-4-3-2-1 Sensory Scan</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">
+                Check off each item as you notice it around the room:
+            </p>
+            <div>
+                <label class="check-step"><input type="checkbox"> <div><strong>5 things you see:</strong> Look for light switches, wall patterns, shadows, or colors.</div></label>
+                <label class="check-step"><input type="checkbox"> <div><strong>4 things you feel:</strong> Notice your feet on the floor, texture of clothing, table edge.</div></label>
+                <label class="check-step"><input type="checkbox"> <div><strong>3 sounds you hear:</strong> A clock ticking, fridge hum, distant traffic, your own breath.</div></label>
+                <label class="check-step"><input type="checkbox"> <div><strong>2 things you smell:</strong> Scent of soap, coffee, fresh air, or your sleeve.</div></label>
+                <label class="check-step"><input type="checkbox"> <div><strong>1 thing you taste:</strong> A sip of cool water, lingering tea, or run tongue on teeth.</div></label>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+                <span id="groundingCounter" style="font-size: 0.88rem; font-weight: 700; color: var(--teal-accent);">0 of 5 anchored</span>
+                <button id="resetGroundingChecks" class="pill-btn">Reset All</button>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- MODAL 11: Mental Distractions -->
+    <dialog id="modal-distraction">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">🧠</span>
+                <h3 class="modal-title">Mental Distractions</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="generator-card">
+                <div style="font-size: 0.8rem; text-transform: uppercase; font-weight: 800; color: #9333ea; margin-bottom: 6px;">Alphabet Challenge</div>
+                <div id="distractCategoryText" class="gen-main-text">Name a Canadian Town or City for every letter (A to Z)</div>
+                <div class="gen-sub-text">Demands working memory, which physically reduces blood flow to the panic center.</div>
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <button id="newCategoryBtn" class="card-btn card-btn-purple">New Category Topic →</button>
+            </div>
+
+            <div class="generator-card" style="margin-bottom: 0;">
+                <div style="font-size: 0.8rem; text-transform: uppercase; font-weight: 800; color: #9333ea; margin-bottom: 6px;">Serial 7s Math</div>
+                <div id="mathNum" style="font-size: 2.2rem; font-weight: 800; color: var(--text-heading);">100</div>
+                <div id="mathSub" class="gen-sub-text">Click "Subtract 7" to step down</div>
+                <div style="display: flex; gap: 8px; justify-content: center; margin-top: 12px;">
+                    <button id="mathNext" class="pill-btn active">- 7</button>
+                    <button id="mathReset" class="pill-btn">Reset 100</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- MODAL 12: Somatic Movement -->
+    <dialog id="modal-somatic">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">⚡</span>
+                <h3 class="modal-title">Somatic Adrenaline Release</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div class="generator-card" style="text-align: left; margin: 0;">
+                    <h4 style="font-weight: 700; color: #e11d48; margin-bottom: 4px;">🧱 Wall Push (30s Maximum Force)</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-body);">Stand an arm's length from a sturdy wall. Place both palms flat and push with 100% of your body strength for 30 seconds. This metabolizes surging adrenaline trapped in muscles.</p>
+                </div>
+                <div class="generator-card" style="text-align: left; margin: 0;">
+                    <h4 style="font-weight: 700; color: #e11d48; margin-bottom: 4px;">🧊 Cold Temperature Dive Reflex</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-body);">Splash ice-cold water onto your cheekbones and eyes, or hold a frozen can against your forehead for 20 seconds. This triggers the mammalian dive reflex to drop pulse rates rapidly.</p>
+                </div>
+                <div class="generator-card" style="text-align: left; margin: 0;">
+                    <h4 style="font-weight: 700; color: #e11d48; margin-bottom: 4px;">🦋 Butterfly Tapping</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-body);">Cross your forearms across your chest so your fingers touch your collarbones. Alternate tapping left and right in a slow rhythm (1 tap per second) while taking slow breaths.</p>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- MODAL 13: Realistic Reframing -->
+    <dialog id="modal-reframing">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">💙</span>
+                <h3 class="modal-title">Realistic Reframing</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="generator-card">
+                <div style="font-size: 0.8rem; text-transform: uppercase; font-weight: 800; color: #d97706; margin-bottom: 6px;">Mental Subtraction</div>
+                <div id="reframePromptText" class="gen-main-text">"Imagine your day without indoor heating or running hot tap water. Notice the quiet relief of having it accessible right now."</div>
+                <div class="gen-sub-text">Grounding appreciation in concrete reality rather than forced optimism.</div>
+            </div>
+            <button id="newReframeBtn" class="card-btn card-btn-amber">Give Me Another Perspective →</button>
+        </div>
+    </dialog>
+
+    <!-- MODAL 14: Daily 5-Minute Routine -->
+    <dialog id="modal-routine">
+        <div class="modal-header">
+            <div class="modal-title-group">
+                <span class="modal-icon">⏱️</span>
+                <h3 class="modal-title">Daily 5-Minute Reset Routine</h3>
+            </div>
+            <button class="btn-modal-close" data-close aria-label="Close modal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div style="display: flex; flex-direction: column; gap: 14px;">
+                <div class="generator-card" style="text-align: left; margin: 0; border-left: 4px solid #0284c7;">
+                    <h4 style="font-weight: 700; color: var(--text-heading); margin-bottom: 4px;">☀️ Morning (1 Min)</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-muted);">1 double-inhale physiological sigh + write down 1 small concrete task you intend to finish today.</p>
+                </div>
+                <div class="generator-card" style="text-align: left; margin: 0; border-left: 4px solid #0d9488;">
+                    <h4 style="font-weight: 700; color: var(--text-heading); margin-bottom: 4px;">⛅ Midday Pause (2 Min)</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-muted);">4 cycles of Box Breathing + drop shoulder tension and unclench your jaw completely.</p>
+                </div>
+                <div class="generator-card" style="text-align: left; margin: 0; border-left: 4px solid #9333ea;">
+                    <h4 style="font-weight: 700; color: var(--text-heading); margin-bottom: 4px;">🌙 Evening Wind-down (2 Min)</h4>
+                    <p style="font-size: 0.88rem; color: var(--text-muted);">Name 3 micro-comforts from today + 3 slow cycles of 4-7-8 breathing to invite natural rest.</p>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- ==========================================================================
+       10. APPLICATION SCRIPT
+       ========================================================================== */ -->
+    <script>
+        "use strict";
+
+        // ==========================================
+        // 1. THEME TOGGLE (PERSISTENT & SYSTEM-AWARE)
+        // ==========================================
+        const themeToggleBtn = document.getElementById("themeToggleBtn");
+        const themeIcon = document.getElementById("themeIcon");
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute("data-theme", theme);
+            themeIcon.textContent = theme === "dark" ? "☀️" : "🌙";
+            themeToggleBtn.setAttribute("aria-label", `Switch to ${theme === "dark" ? "light" : "dark"} mode`);
+            try { localStorage.setItem("coping_theme", theme); } catch {}
+        }
+
+        const savedTheme = (() => {
+            try { return localStorage.getItem("coping_theme"); } catch {}
+            return null;
+        })();
+
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            applyTheme("dark");
+        }
+
+        themeToggleBtn.addEventListener("click", () => {
+            const current = document.documentElement.getAttribute("data-theme") || "light";
+            applyTheme(current === "dark" ? "light" : "dark");
+        });
+
+        // ==========================================
+        // 2. MODAL CONTROLLER
+        // ==========================================
+        let lastFocusedElement = null;
+
+        function openModal(modalId, triggerEl) {
+            const dialog = document.getElementById(modalId);
+            if (!dialog) return;
+            lastFocusedElement = triggerEl || document.activeElement;
+            dialog.showModal();
+            const firstButton = dialog.querySelector("button, input, [tabindex='0']");
+            if (firstButton) firstButton.focus();
+
+            // Trigger canvas wave sizing if opening waves modal
+            if (modalId === "modal-waves") {
+                resizeCanvas();
+                startWaves();
+            }
+        }
+
+        function closeModal(dialog) {
+            if (dialog && dialog.open) {
+                dialog.close();
+                if (lastFocusedElement && typeof lastFocusedElement.focus === "function") {
+                    lastFocusedElement.focus();
+                }
+            }
+        }
+
+        // Attach modal openers to all cards
+        document.querySelectorAll("[data-modal]").forEach(card => {
+            const modalId = card.dataset.modal;
+            card.addEventListener("click", () => openModal(modalId, card));
+            card.querySelector("button")?.addEventListener("click", (e) => {
+                e.stopPropagation();
+                openModal(modalId, card);
+            });
+        });
+
+        // Close triggers
+        document.querySelectorAll("[data-close]").forEach(btn => {
+            btn.addEventListener("click", () => closeModal(btn.closest("dialog")));
+        });
+
+        // Backdrop click close
+        document.querySelectorAll("dialog").forEach(dialog => {
+            dialog.addEventListener("click", (e) => {
+                const rect = dialog.getBoundingClientRect();
+                const inDialog =
+                    rect.top <= e.clientY &&
+                    e.clientY <= rect.top + rect.height &&
+                    rect.left <= e.clientX &&
+                    e.clientX <= rect.left + rect.width;
+                if (!inDialog) closeModal(dialog);
+            });
+        });
+
+        // ==========================================
+        // 3. THREE-WAY FILTER LOGIC
+        // ==========================================
+        const filterPills = document.querySelectorAll(".pill-cluster .pill-btn");
+        const clearFiltersBtn = document.getElementById("clearFiltersBtn");
+        const filterCountSpan = document.getElementById("filterCount");
+        const allCards = document.querySelectorAll(".tool-card");
+
+        const activeFilters = {
+            time: "all",
+            activity: "all",
+            need: "all"
+        };
+
+        filterPills.forEach(pill => {
+            pill.addEventListener("click", () => {
+                const group = pill.closest(".pill-cluster").dataset.filterGroup;
+                const siblings = pill.closest(".pill-cluster").querySelectorAll(".pill-btn");
+                siblings.forEach(s => s.classList.remove("active"));
+                pill.classList.add("active");
+
+                activeFilters[group] = pill.dataset.val;
+                applyCardFilters();
+            });
+        });
+
+        function applyCardFilters() {
+            let visibleCount = 0;
+
+            allCards.forEach(card => {
+                const times = (card.dataset.time || "").split(",");
+                const activities = (card.dataset.activity || "").split(",");
+                const needs = (card.dataset.need || "").split(",");
+
+                const matchTime = activeFilters.time === "all" || times.includes(activeFilters.time);
+                const matchActivity = activeFilters.activity === "all" || activities.includes(activeFilters.activity);
+                const matchNeed = activeFilters.need === "all" || needs.includes(activeFilters.need);
+
+                if (matchTime && matchActivity && matchNeed) {
+                    card.style.display = "";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            filterCountSpan.textContent = visibleCount === allCards.length
+                ? `Showing all ${allCards.length} tools`
+                : `Showing ${visibleCount} of ${allCards.length} tools`;
+        }
+
+        clearFiltersBtn.addEventListener("click", () => {
+            filterPills.forEach(p => p.classList.remove("active"));
+            document.querySelectorAll('.pill-cluster button[data-val="all"]').forEach(b => b.classList.add("active"));
+            activeFilters.time = "all";
+            activeFilters.activity = "all";
+            activeFilters.need = "all";
+            applyCardFilters();
+        });
+
+        // ==========================================
+        // 4. "SURPRISE ME!" RANDOM PICKER
+        // ==========================================
+        const surpriseMeBtn = document.getElementById("surpriseMeBtn");
+        surpriseMeBtn.addEventListener("click", () => {
+            const cardArray = Array.from(allCards);
+            const randomCard = cardArray[Math.floor(Math.random() * cardArray.length)];
+            const modalId = randomCard.dataset.modal;
+            openModal(modalId, surpriseMeBtn);
+        });
+
+        // ==========================================
+        // 5. TOOL 1: WATCH THE WAVES (CANVAS ANIMATION)
+        // ==========================================
+        const wavesCanvas = document.getElementById("wavesCanvas");
+        const ctx = wavesCanvas.getContext("2d");
+        const toggleWavesBtn = document.getElementById("toggleWavesBtn");
+        let wavesAnimationId = null;
+        let wavesRunning = false;
+        let waveStep = 0;
+
+        function resizeCanvas() {
+            const wrap = wavesCanvas.parentElement;
+            wavesCanvas.width = wrap.clientWidth;
+            wavesCanvas.height = wrap.clientHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+
+        function drawWaves() {
+            if (!wavesRunning) return;
+            ctx.clearRect(0, 0, wavesCanvas.width, wavesCanvas.height);
+
+            const width = wavesCanvas.width;
+            const height = wavesCanvas.height;
+            waveStep += 0.018;
+
+            // Draw 3 layered sinusoidal harmonic waves
+            const layers = [
+                { color: "rgba(13, 148, 136, 0.45)", length: 0.012, speed: waveStep, amp: 26, y: height * 0.58 },
+                { color: "rgba(2, 132, 199, 0.4)", length: 0.016, speed: waveStep * 0.8 + 1, amp: 20, y: height * 0.65 },
+                { color: "rgba(56, 189, 248, 0.5)", length: 0.009, speed: waveStep * 1.2 + 2, amp: 16, y: height * 0.72 }
+            ];
+
+            layers.forEach(layer => {
+                ctx.beginPath();
+                ctx.moveTo(0, height);
+                for (let x = 0; x <= width; x += 4) {
+                    const y = layer.y + Math.sin(x * layer.length + layer.speed) * layer.amp;
+                    ctx.lineTo(x, y);
+                }
+                ctx.lineTo(width, height);
+                ctx.closePath();
+                ctx.fillStyle = layer.color;
+                ctx.fill();
+            });
+
+            wavesAnimationId = requestAnimationFrame(drawWaves);
+        }
+
+        function startWaves() {
+            if (!wavesRunning) {
+                wavesRunning = true;
+                toggleWavesBtn.textContent = "Pause Waves";
+                drawWaves();
+            }
+        }
+        function pauseWaves() {
+            wavesRunning = false;
+            cancelAnimationFrame(wavesAnimationId);
+            toggleWavesBtn.textContent = "Resume Waves";
+        }
+
+        toggleWavesBtn.addEventListener("click", () => {
+            if (wavesRunning) pauseWaves();
+            else startWaves();
+        });
+
+        // ==========================================
+        // 6. TOOL 2: RANDOM SELF-CARE GENERATOR
+        // ==========================================
+        const selfCareIdeas = [
+            "Drink 4 slow sips of cold water and notice the sensation in your throat.",
+            "Gently unclench your jaw and rest your tongue completely flat on the floor of your mouth.",
+            "Step outside or open a window to feel natural air on your face for 30 seconds.",
+            "Drop your shoulders 2 inches down and away from your ears right now.",
+            "Wash your hands with warm water and pleasant soap, paying attention to the lather.",
+            "Put your phone face-down for 3 minutes and stretch your neck side to side."
+        ];
+        const selfCareText = document.getElementById("selfCareText");
+        document.getElementById("newSelfCareBtn").addEventListener("click", () => {
+            const random = selfCareIdeas[Math.floor(Math.random() * selfCareIdeas.length)];
+            selfCareText.textContent = random;
+        });
+
+        // ==========================================
+        // 7. TOOL 3: DAILY AFFIRMATIONS GENERATOR
+        // ==========================================
+        const affirmations = [
+            "\"You do not have to figure out your entire future today. Just focus on the next twenty minutes.\"",
+            "\"It is completely acceptable to pause and rest without having to earn it first.\"",
+            "\"Being overwhelmed is a normal physiological signal that you are carrying too much, not a personal flaw.\"",
+            "\"You have navigated difficult days before; you can navigate this one hour at a time.\"",
+            "\"Notice that right in this immediate 5 seconds, your body is breathing and safe.\""
+        ];
+        const affirmationText = document.getElementById("affirmationText");
+        document.getElementById("newAffirmationBtn").addEventListener("click", () => {
+            const random = affirmations[Math.floor(Math.random() * affirmations.length)];
+            affirmationText.textContent = random;
+        });
+
+        // ==========================================
+        // 8. TOOL 4: COLOUR & PATTERN (MANDALA)
+        // ==========================================
+        let activeColor = "#99f6e4";
+        const colorDots = document.querySelectorAll(".color-dot");
+        const mandalaShapes = document.querySelectorAll("#mandalaSvg path, #mandalaSvg circle");
+
+        colorDots.forEach(dot => {
+            dot.addEventListener("click", () => {
+                colorDots.forEach(d => d.classList.remove("active"));
+                dot.classList.add("active");
+                activeColor = dot.dataset.color;
+            });
+        });
+
+        mandalaShapes.forEach(shape => {
+            shape.addEventListener("click", () => {
+                shape.setAttribute("fill", activeColor);
+            });
+        });
+
+        document.getElementById("resetMandalaBtn").addEventListener("click", () => {
+            mandalaShapes.forEach(shape => shape.setAttribute("fill", "#ffffff"));
+        });
+
+        // ==========================================
+        // 9. TOOL 5: MINDFUL MOMENTS
+        // ==========================================
+        const mindfulPrompts = [
+            "Find 3 different physical textures within arm's reach (e.g., denim, cold glass, smooth wood).",
+            "Listen closely: identify the most distant sound you can hear outside this room.",
+            "Look for 4 items in your visual field that have the color blue or green.",
+            "Touch your thumb to each fingertip in sequence: index, middle, ring, pinky. Notice each press."
+        ];
+        const mindfulText = document.getElementById("mindfulText");
+        document.getElementById("newMindfulBtn").addEventListener("click", () => {
+            const random = mindfulPrompts[Math.floor(Math.random() * mindfulPrompts.length)];
+            mindfulText.textContent = random;
+        });
+
+        // ==========================================
+        // 10. TOOL 6: GRATITUDE REFLECTION
+        // ==========================================
+        const saveGratitudeBtn = document.getElementById("saveGratitudeBtn");
+        const clearGratitudeBtn = document.getElementById("clearGratitudeBtn");
+        const gratitudeFeedback = document.getElementById("gratitudeFeedback");
+        const g1 = document.getElementById("g1");
+        const g2 = document.getElementById("g2");
+        const g3 = document.getElementById("g3");
+
+        saveGratitudeBtn.addEventListener("click", () => {
+            gratitudeFeedback.style.display = "block";
+            setTimeout(() => { gratitudeFeedback.style.display = "none"; }, 3000);
+        });
+
+        clearGratitudeBtn.addEventListener("click", () => {
+            g1.value = ""; g2.value = ""; g3.value = "";
+            gratitudeFeedback.style.display = "none";
+        });
+
+        // ==========================================
+        // 11. TOOL 7: PICK YOUR WEATHER
+        // ==========================================
+        const weatherAdvice = {
+            storm: {
+                title: "⛈️ High Adrenaline / Storm Strategy",
+                body: "Do a 30-second heavy wall push or hold cold ice on your face. Your body needs physical metabolization of adrenaline before logic can work."
+            },
+            fog: {
+                title: "🌫️ Numbness / Low Energy Strategy",
+                body: "Use the 5-4-3-2-1 sensory scan or take a warm shower. Gently stimulate physical nerves with distinct tactile textures."
+            },
+            wind: {
+                title: "💨 Restless Mind Strategy",
+                body: "Run 4 cycles of Box Breathing (4 in, 4 hold, 4 out, 4 hold). Balances blood oxygen and reduces somatic jitteriness."
+            },
+            sun: {
+                title: "🌤️ Mixed Fatigue Strategy",
+                body: "Drink a full glass of cold water, stretch your calves and hamstrings, and allow yourself a guilt-free 10-minute quiet pause."
+            }
+        };
+
+        const weatherButtons = document.querySelectorAll(".weather-btn");
+        const weatherResult = document.getElementById("weatherResult");
+        const weatherAdviceTitle = document.getElementById("weatherAdviceTitle");
+        const weatherAdviceBody = document.getElementById("weatherAdviceBody");
+
+        weatherButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                weatherButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                const code = btn.dataset.weather;
+                const rec = weatherAdvice[code];
+                weatherAdviceTitle.textContent = rec.title;
+                weatherAdviceBody.textContent = rec.body;
+                weatherResult.style.display = "block";
+            });
+        });
+
+        // ==========================================
+        // 12. TOOL 8: ROLL FOR A RESET (3D DIE)
+        // ==========================================
+        const resetActions = [
+            { num: 1, action: "Roll your shoulders backward 10 times slowly." },
+            { num: 2, action: "Drink 3 big sips of water right now." },
+            { num: 3, action: "Do 2 physiological sighs (double inhale, long sigh)." },
+            { num: 4, action: "Push flat palms into your thighs and feel the ground." },
+            { num: 5, action: "Name 3 green things you see in the room." },
+            { num: 6, action: "Shake your hands and wrists out like flicking water." }
+        ];
+        const diceCube = document.getElementById("diceCube");
+        const diceResultText = document.getElementById("diceResultText");
+        const diceSubText = document.getElementById("diceSubText");
+        const rollDiceBtn = document.getElementById("rollDiceBtn");
+
+        rollDiceBtn.addEventListener("click", () => {
+            diceCube.classList.add("dice-rolling");
+            rollDiceBtn.disabled = true;
+
+            setTimeout(() => {
+                diceCube.classList.remove("dice-rolling");
+                const item = resetActions[Math.floor(Math.random() * resetActions.length)];
+                diceCube.textContent = item.num;
+                diceResultText.textContent = `You rolled a ${item.num}!`;
+                diceSubText.textContent = item.action;
+                rollDiceBtn.disabled = false;
+            }, 600);
+        });
+
+        // ==========================================
+        // 13. TOOL 9: BREATHING PACER ENGINE
+        // ==========================================
+        const pacerOrb = document.getElementById("pacerOrb");
+        const pacerPhaseText = document.getElementById("pacerPhaseText");
+        const pacerSecondsText = document.getElementById("pacerSecondsText");
+        const pacerDescription = document.getElementById("pacerDescription");
+        const togglePacerBtn = document.getElementById("togglePacerBtn");
+        const resetPacerBtn = document.getElementById("resetPacerBtn");
+        const breathModeButtons = document.querySelectorAll(".breath-mode-btn");
+
+        let pacerTimer = null;
+        let isPacerActive = false;
+        let selectedBMode = "box";
+        let bStepIdx = 0;
+        let bSecRemaining = 0;
+
+        const breathConfigs = {
+            box: {
+                desc: "Box Breathing balances O2 & CO2 levels, stabilizing pulse and panic.",
+                steps: [
+                    { name: "Inhale", dur: 4, scale: 1.5 },
+                    { name: "Hold", dur: 4, scale: 1.5 },
+                    { name: "Exhale", dur: 4, scale: 1.0 },
+                    { name: "Hold Empty", dur: 4, scale: 1.0 }
+                ]
+            },
+            sigh: {
+                desc: "Physiological sigh: double inhale expands collapsed alveoli; long exhale dumps CO2.",
+                steps: [
+                    { name: "Deep Inhale", dur: 3, scale: 1.3 },
+                    { name: "Top-off Inhale", dur: 1, scale: 1.6 },
+                    { name: "Slow Mouth Sigh", dur: 6, scale: 1.0 }
+                ]
+            },
+            sleep: {
+                desc: "4-7-8 breathing triggers the parasympathetic vagal brake for bedtime relaxation.",
+                steps: [
+                    { name: "Nose Inhale", dur: 4, scale: 1.5 },
+                    { name: "Hold", dur: 7, scale: 1.5 },
+                    { name: "Slow Exhale", dur: 8, scale: 1.0 }
+                ]
+            }
+        };
+
+        function tickPacer() {
+            if (bSecRemaining > 1) {
+                bSecRemaining--;
+                pacerSecondsText.textContent = bSecRemaining;
+            } else {
+                const conf = breathConfigs[selectedBMode];
+                bStepIdx = (bStepIdx + 1) % conf.steps.length;
+                bSecRemaining = conf.steps[bStepIdx].dur;
+                updatePacerState();
+            }
+        }
+
+        function updatePacerState() {
+            const step = breathConfigs[selectedBMode].steps[bStepIdx];
+            pacerPhaseText.textContent = step.name;
+            pacerSecondsText.textContent = bSecRemaining;
+            pacerOrb.style.transform = `scale(${step.scale})`;
+            pacerOrb.style.transition = `transform ${step.dur}s ease-in-out`;
+        }
+
+        function startPacerRun() {
+            isPacerActive = true;
+            togglePacerBtn.textContent = "Pause";
+            bStepIdx = 0;
+            bSecRemaining = breathConfigs[selectedBMode].steps[0].dur;
+            updatePacerState();
+            pacerTimer = setInterval(tickPacer, 1000);
+        }
+
+        function stopPacerRun() {
+            isPacerActive = false;
+            clearInterval(pacerTimer);
+            togglePacerBtn.textContent = "Resume";
+        }
+
+        function resetPacerRun() {
+            stopPacerRun();
+            togglePacerBtn.textContent = "Start Exercise";
+            pacerPhaseText.textContent = "Ready";
+            pacerSecondsText.textContent = "--";
+            pacerOrb.style.transform = "scale(1)";
+        }
+
+        togglePacerBtn.addEventListener("click", () => {
+            if (isPacerActive) stopPacerRun();
+            else startPacerRun();
+        });
+
+        resetPacerBtn.addEventListener("click", resetPacerRun);
+
+        breathModeButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                breathModeButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                selectedBMode = btn.dataset.bmode;
+                pacerDescription.textContent = breathConfigs[selectedBMode].desc;
+                resetPacerRun();
+            });
+        });
+
+        // ==========================================
+        // 14. TOOL 10: 5-4-3-2-1 GROUNDING CHECKLIST
+        // ==========================================
+        const groundingCheckboxes = document.querySelectorAll("#modal-grounding input[type='checkbox']");
+        const groundingCounter = document.getElementById("groundingCounter");
+        const resetGroundingChecks = document.getElementById("resetGroundingChecks");
+
+        function updateGroundingCount() {
+            let total = 0;
+            groundingCheckboxes.forEach(cb => { if (cb.checked) total++; });
+            groundingCounter.textContent = `${total} of 5 anchored`;
+            if (total === 5) {
+                groundingCounter.textContent = "✓ Complete! Well done pausing for yourself.";
+            }
+        }
+
+        groundingCheckboxes.forEach(cb => cb.addEventListener("change", updateGroundingCount));
+
+        resetGroundingChecks.addEventListener("click", () => {
+            groundingCheckboxes.forEach(cb => cb.checked = false);
+            updateGroundingCount();
+        });
+
+        // ==========================================
+        // 15. TOOL 11: DISTRACTIONS & SERIAL 7S
+        // ==========================================
+        const distCatList = [
+            "Name a dog breed for each letter A to Z",
+            "Name a food you eat with a spoon for letters A to Z",
+            "Name musical artists with a one-word name",
+            "Name items sold in a pharmacy starting with S, M, or B"
+        ];
+        const distractCategoryText = document.getElementById("distractCategoryText");
+        document.getElementById("newCategoryBtn").addEventListener("click", () => {
+            const random = distCatList[Math.floor(Math.random() * distCatList.length)];
+            distractCategoryText.textContent = random;
+        });
+
+        let mathVal = 100;
+        const mathNum = document.getElementById("mathNum");
+        const mathSub = document.getElementById("mathSub");
+        document.getElementById("mathNext").addEventListener("click", () => {
+            if (mathVal > 6) {
+                mathVal -= 7;
+                mathNum.textContent = mathVal;
+                mathSub.textContent = `100 - 7 = ${mathVal}`;
+            } else {
+                mathNum.textContent = "Finished!";
+                mathSub.textContent = "You reached the end of the countdown!";
+            }
+        });
+        document.getElementById("mathReset").addEventListener("click", () => {
+            mathVal = 100;
+            mathNum.textContent = "100";
+            mathSub.textContent = "Click -7 to step down";
+        });
+
+        // ==========================================
+        // 16. TOOL 13: REALISTIC REFRAMING
+        // ==========================================
+        const reframePrompts = [
+            "\"Imagine your day without running hot tap water. Notice the quiet relief of having it accessible right now.\"",
+            "\"Think of one annoying chore you finished 2 days ago that you no longer have to handle today.\"",
+            "\"Appreciate an invisible human worker: whoever maintained the power lines delivering electricity to your screen right now.\"",
+            "\"Notice that you don't have to feel happy to be okay. Simply feeling neutral and safe is a victory.\""
+        ];
+        const reframePromptText = document.getElementById("reframePromptText");
+        document.getElementById("newReframeBtn").addEventListener("click", () => {
+            const random = reframePrompts[Math.floor(Math.random() * reframePrompts.length)];
+            reframePromptText.textContent = random;
+        });
+    </script>
+</body>
+</html>
