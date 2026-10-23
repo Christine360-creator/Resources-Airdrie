@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coping & Self-Regulation Interactive Toolkit | Airdrie & Area</title>
+    <meta name="description" content="Interactive breathing visualizers, grounding checklists, cognitive distraction games, somatic exercises, and everyday self-regulation tools.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy-dark: #0f1e36;
+            --navy-primary: #182d4b;
+            --blue-accent: #2563eb;
+            --teal-accent: #0d9488;
+            --teal-light: #ccfbf1;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border-subtle: #e2e8f0;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --danger-bg: #fef2f2;
+            --danger-text: #b91c1c;
+            --danger-border: #fca5a5;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--blue-accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 10px;
+            background: var(--navy-dark);
+            color: #ffffff;
+            padding: 10px 16px;
+            z-index: 9999;
+            border-radius: var(--radius-sm);
+        }
+        .skip-link:focus {
+            top: 10px;
+        }
+
+        /* Top Crisis Banner */
+        .crisis-bar {
+            background-color: #fff1f2;
+            border-bottom: 1px solid var(--danger-border);
+            padding: 10px 0;
+            font-size: 0.88rem;
+            color: var(--danger-text);
+        }
+        .crisis-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .crisis-badge {
+            background-color: var(--danger-text);
+            color: #ffffff;
+            padding: 3px 8px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        /* Header */
+        .site-header {
+            background-color: var(--navy-dark);
+            color: #ffffff;
+            padding: 16px 0;
+            box-shadow: var(--shadow-sm);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: #ffffff;
+        }
+        .logo-area:hover {
+            text-decoration: none;
+            opacity: 0.95;
+        }
+        .logo-icon {
+            background: var(--teal-accent);
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+        }
+        .btn-nav-back {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.88rem;
+            transition: all 0.2s;
+        }
+        .btn-nav-back:hover {
+            background: rgba(255, 255, 255, 0.22);
+            text-decoration: none;
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-primary) 100%);
+            color: #ffffff;
+            padding: 48px 0 40px;
+            text-align: center;
+        }
+        .hero-tag {
+            display: inline-block;
+            background: rgba(13, 148, 136, 0.25);
+            border: 1px solid var(--teal-accent);
+            color: #5eead4;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+        .hero h1 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 12px;
+        }
+        .hero p {
+            max-width: 680px;
+            margin: 0 auto;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        /* Medical Disclaimer */
+        .disclaimer-card {
+            background: #f0fdfa;
+            border: 1px solid #99f6e4;
+            border-left: 5px solid var(--teal-accent);
+            padding: 16px 20px;
+            border-radius: var(--radius-sm);
+            margin: 28px auto 0;
+            font-size: 0.92rem;
+            color: #134e4a;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .disclaimer-card strong {
+            color: #0f766e;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            gap: 8px;
+            margin: 32px 0 24px;
+            border-bottom: 2px solid var(--border-subtle);
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 18px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -6px;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab-btn:hover {
+            color: var(--navy-primary);
+        }
+        .tab-btn.active {
+            color: var(--teal-accent);
+            border-bottom-color: var(--teal-accent);
+        }
+
+        /* Tab Panels */
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.25s ease-in-out;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card components */
+        .tool-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+        }
+        .tool-header {
+            margin-bottom: 16px;
+        }
+        .tool-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tool-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--teal-accent);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-primary:hover {
+            background: #0f766e;
+        }
+        .btn-secondary {
+            background: #f1f5f9;
+            color: var(--text-main);
+            border: 1px solid var(--border-subtle);
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        /* Breathing Pacer Tool */
+        .breathing-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 24px 0 16px;
+        }
+        .pacer-container {
+            position: relative;
+            width: 240px;
+            height: 240px;
+            margin: 24px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pacer-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px dashed #99f6e4;
+        }
+        .pacer-circle {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #2dd4bf 0%, #0d9488 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 35px rgba(13, 148, 136, 0.4);
+            transform: scale(1);
+            transition: transform 1s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+        .pacer-state-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+        .pacer-timer-text {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-top: 2px;
+        }
+        .breathing-modes {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .mode-btn {
+            background: #f8fafc;
+            border: 1px solid var(--border-subtle);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .mode-btn.active {
+            background: var(--navy-dark);
+            color: #ffffff;
+            border-color: var(--navy-dark);
+        }
+        .pacer-instructions {
+            max-width: 500px;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin: 16px 0;
+            min-height: 44px;
+        }
+
+        /* 5-4-3-2-1 Sensory Checklist */
+        .sensory-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .sensory-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            background: #ffffff;
+            transition: all 0.2s;
+        }
+        .sensory-item.checked {
+            background: #f8fafc;
+            opacity: 0.75;
+            border-color: #cbd5e1;
+        }
+        .sensory-item input[type="checkbox"] {
+            margin-top: 4px;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--teal-accent);
+            cursor: pointer;
+        }
+        .sensory-content h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy-primary);
+        }
+        .sensory-content p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Cognitive Games Grid */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+        .game-display {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            margin: 16px 0;
+            text-align: center;
+        }
+        .display-big {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--navy-dark);
+        }
+        .display-sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Somatic Timer & Exercises */
+        .somatic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .somatic-card {
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 18px;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .somatic-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--navy-dark);
+            margin-bottom: 6px;
+        }
+        .somatic-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+
+        /* Searchable Library Grid */
+        .search-bar-wrap {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .search-input {
+            flex: 1;
+            min-width: 260px;
+            padding: 10px 16px;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+        }
+        .filter-select {
+            padding: 10px 16px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            background: #ffffff;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .skill-card {
+            background: #ffffff;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .skill-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        .skill-tag-pill {
+            display: inline-block;
+            background: var(--teal-light);
+            color: #0f766e;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            width: fit-content;
+        }
+        .skill-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 6px;
+        }
+        .skill-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: var(--navy-dark);
+            color: #94a3b8;
+            padding: 32px 0;
+            margin-top: 60px;
+            font-size: 0.88rem;
+            text-align: center;
+        }
+        .site-footer a {
+            color: #38bdf8;
+        }
+
+        @media (max-width: 640px) {
+            .crisis-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .pacer-container {
+                width: 200px;
+                height: 200px;
+            }
+            .pacer-circle {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <!-- CRISIS BANNER -->
+    <aside class="crisis-bar" aria-label="Crisis assistance">
+        <div class="container crisis-inner">
+            <div>
+                <span class="crisis-badge">Immediate Distress</span>
+                <span>In life-threatening danger: <strong>911</strong> | Suicide Crisis: call/text <strong>988</strong> | Youth Text: <strong>CONNECT to 686868</strong></span>
+            </div>
+            <a href="index.html" style="color: var(--danger-text); font-weight: 600;">View Full Directory →</a>
+        </div>
+    </aside>
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container header-content">
+            <a class="logo-area" href="index.html">
+                <span class="logo-icon" aria-hidden="true">🌱</span>
+                <span>Airdrie Community Resources</span>
+            </a>
+            <a class="btn-nav-back" href="index.html">← Back to Resource Directory</a>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container">
+                <span class="hero-tag">Immediate Self-Regulation Tools</span>
+                <h1>Coping Tools & Micro-Resets</h1>
+                <p>Interactive breathwork, grounding checklists, cognitive refocusing games, and somatic resets you can use right now.</p>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- MEDICAL DISCLAIMER -->
+            <div class="disclaimer-card" role="note">
+                <span style="font-size: 1.4rem;">💡</span>
+                <div>
+                    <strong>Practical Self-Regulation Aid:</strong>
+                    These exercises and interactive tools are designed for mild-to-moderate everyday stress, anxiety grounding, and nervous system de-escalation. They are <strong>not</strong> a substitute for clinical care, psychiatric treatment, or crisis intervention. If you are experiencing acute distress, reach out to 211, 811, or 988.
+                </div>
+            </div>
+
+            <!-- TAB CONTROLS -->
+            <nav class="tab-nav" aria-label="Tool selection tabs">
+                <button class="tab-btn active" data-tab="pacer">🌬️ Breathing Pacer</button>
+                <button class="tab-btn" data-tab="grounding">👣 5-4-3-2-1 Grounding</button>
+                <button class="tab-btn" data-tab="games">🧠 Cognitive Games</button>
+                <button class="tab-btn" data-tab="somatic">⚡ Somatic & Physical</button>
+                <button class="tab-btn" data-tab="journal">✍️ Gratitude & Prompts</button>
+                <button class="tab-btn" data-tab="library">📚 Quick Skills Library</button>
+            </nav>
+
+            <!-- TAB 1: BREATHING PACER -->
+            <section id="tab-pacer" class="tab-panel active">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <h2 class="tool-title">Interactive Visual Breathing Pacer</h2>
+                        <p class="tool-desc">Select a protocol below, then follow the animated circle with your inhale and exhale.</p>
+                    </div>
+
+                    <div class="breathing-modes">
+                        <button class="mode-btn active" data-mode="box">Box Breathing (4-4-4-4)</button>
+                        <button class="mode-btn" data-mode="sleep">4-7-8 Anxiety / Sleep</button>
+                        <button class="mode-btn" data-mode="sigh">Physiological Sigh (Double Inhale)</button>
+                    </div>
+
+                    <div class="breathing-box">
+                        <div class="pacer-container">
+                            <div class="pacer-ring"></div>
+                            <div id="pacerCircle" class="pacer-circle">
+                                <span id="pacerPhase" class="pacer-state-text">Ready</span>
+                                <span id="pacerCount" class="pacer-timer-text">--</span>
+                            </div>
+                        </div>
+
+                        <p id="pacerInstructions" class="pacer-instructions">
+                            Box breathing balances oxygen and carbon dioxide, slowing your resting heart rate.
+                        </p>
+
+                        <div style="display: flex; gap: 12px;">
+                            <button id="pacerToggleBtn" class="btn-primary">Start Exercise</button>
+                            <button id="pacerResetBtn" class="btn-secondary">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: 5-4-3-2-1 GROUNDING CHECKLIST -->
+            <section id="tab-grounding" class="tab-panel">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <h2 class="tool-title">Interactive 5-4-3-2-1 Sensory Scan</h2>
+                        <p class="tool-desc">When thoughts are spiraling, anchoring your physical senses brings your nervous system into the present moment.</p>
+                    </div>
+
+                    <div class="sensory-list">
+                        <label class="sensory-item" id="item-5">
+                            <input type="checkbox" data-index="1">
+                            <div class="sensory-content">
+                                <h4>5 Things You Can See</h4>
+                                <p>Look around and identify 5 distinct objects (a light switch, a shadow, a pen, a pattern on the wall, a window frame).</p>
+                            </div>
+                        </label>
+
+                        <label class="sensory-item" id="item-4">
+                            <input type="checkbox" data-index="2">
+                            <div class="sensory-content">
+                                <h4>4 Things You Can Touch</h4>
+                                <p>Feel 4 physical textures (the fabric of your jeans, smooth tabletop, cool phone screen, the soles of your shoes).</p>
+                            </div>
+                        </label>
+
+                        <label class="sensory-item" id="item-3">
+                            <input type="checkbox" data-index="3">
+                            <div class="sensory-content">
+                                <h4>3 Things You Can Hear</h4>
+                                <p>Listen for 3 background sounds (the hum of the fridge, distant traffic, your own breath, a computer fan).</p>
+                            </div>
+                        </label>
+
+                        <label class="sensory-item" id="item-2">
+                            <input type="checkbox" data-index="4">
+                            <div class="sensory-content">
+                                <h4>2 Things You Can Smell</h4>
+                                <p>Notice 2 scents (soap on your hands, coffee, fresh air, or simply inhale deeply and note the neutral air).</p>
+                            </div>
+                        </label>
+
+                        <label class="sensory-item" id="item-1">
+                            <input type="checkbox" data-index="5">
+                            <div class="sensory-content">
+                                <h4>1 Thing You Can Taste</h4>
+                                <p>Notice any lingering taste in your mouth, take a small sip of cool water, or run your tongue along your teeth.</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                        <span id="groundingStatus" style="font-size: 0.95rem; font-weight: 600; color: var(--teal-accent);">0 of 5 anchored</span>
+                        <button id="resetGroundingBtn" class="btn-secondary">Reset Scan</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: COGNITIVE GAMES (DISTRACTION) -->
+            <section id="tab-games" class="tab-panel">
+                <div class="games-grid">
+                    <!-- GAME 1: Alphabet Category -->
+                    <div class="tool-card">
+                        <div class="tool-header">
+                            <h3 class="tool-title">Alphabet Category Generator</h3>
+                            <p class="tool-desc">Forces the analytical prefrontal cortex to turn on, interrupting fight-or-flight loops.</p>
+                        </div>
+                        <div class="game-display">
+                            <div id="categoryDisplay" class="display-big">Fruits & Veggies</div>
+                            <div class="display-sub">Name one starting with each letter (A to Z)</div>
+                        </div>
+                        <button id="newCategoryBtn" class="btn-primary" style="width: 100%;">Get New Category</button>
+                    </div>
+
+                    <!-- GAME 2: Countdown 7s -->
+                    <div class="tool-card">
+                        <div class="tool-header">
+                            <h3 class="tool-title">Serial 7s Math Stepper</h3>
+                            <p class="tool-desc">Classic neuro-cognitive focus exercise: count backwards from 100 by 7s.</p>
+                        </div>
+                        <div class="game-display">
+                            <div id="mathDisplay" class="display-big">100</div>
+                            <div id="mathSub" class="display-sub">Click Next to subtract 7</div>
+                        </div>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="mathNextBtn" class="btn-primary" style="flex: 1;">Next (-7)</button>
+                            <button id="mathResetBtn" class="btn-secondary">Reset to 100</button>
+                        </div>
+                    </div>
+
+                    <!-- GAME 3: Color Scavenger -->
+                    <div class="tool-card">
+                        <div class="tool-header">
+                            <h3 class="tool-title">Color Scavenger Prompt</h3>
+                            <p class="tool-desc">Scans the immediate room to ground your visual processing system.</p>
+                        </div>
+                        <div class="game-display">
+                            <div id="colorDisplay" class="display-big" style="color: #2563eb;">Find 4 Blue Items</div>
+                            <div class="display-sub">Point to each item in your room right now</div>
+                        </div>
+                        <button id="newColorBtn" class="btn-primary" style="width: 100%;">New Color Search</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: SOMATIC & PHYSICAL RESETS -->
+            <section id="tab-somatic" class="tab-panel">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <h2 class="tool-title">Physical & Somatic Nerve De-Escalation</h2>
+                        <p class="tool-desc">When adrenaline is surging, mental tactics alone can fail. Physical counter-signals shift your autonomic nervous system.</p>
+                    </div>
+
+                    <div class="somatic-grid">
+                        <div class="somatic-card">
+                            <div>
+                                <h3 class="somatic-title">🧊 Mammalian Dive Reflex</h3>
+                                <p class="somatic-text">Splash ice-cold water onto your eyes and cheekbones, or hold a frozen cold pack to your face for 20 seconds. This mechanically lowers heart rate within 30 seconds.</p>
+                            </div>
+                            <button class="btn-secondary somatic-timer-btn" data-time="20">Start 20s Cold Hold</button>
+                        </div>
+
+                        <div class="somatic-card">
+                            <div>
+                                <h3 class="somatic-title">🦋 Butterfly Tapping</h3>
+                                <p class="somatic-text">Cross your hands over your chest so fingertips rest below your collarbones. Alternate tapping left and right in a slow rhythm (1 tap per second) while breathing slowly.</p>
+                            </div>
+                            <button class="btn-secondary somatic-timer-btn" data-time="60">Start 60s Tapping</button>
+                        </div>
+
+                        <div class="somatic-card">
+                            <div>
+                                <h3 class="somatic-title">🧱 Wall Push (Adrenaline Dump)</h3>
+                                <p class="somatic-text">Place both palms flat against a solid wall. Push with all your physical strength as if trying to move the building for 30 seconds. Discharges trapped adrenaline.</p>
+                            </div>
+                            <button class="btn-secondary somatic-timer-btn" data-time="30">Start 30s Wall Push</button>
+                        </div>
+
+                        <div class="somatic-card">
+                            <div>
+                                <h3 class="somatic-title">✊ Progressive Clench & Release</h3>
+                                <p class="somatic-text">Clench both fists, curling your toes, and tightening your shoulders for 7 seconds. Then release entirely, letting your muscles drop loose.</p>
+                            </div>
+                            <button class="btn-secondary somatic-timer-btn" data-time="45">Start Muscle Cycle</button>
+                        </div>
+                    </div>
+
+                    <div id="somaticTimerBox" style="display: none; margin-top: 24px; padding: 16px; background: #f0fdfa; border: 1px solid #99f6e4; border-radius: var(--radius-sm); text-align: center;">
+                        <span id="somaticTimerName" style="font-weight: 700; color: #0f766e;">Timer</span>: 
+                        <span id="somaticTimerCount" style="font-size: 1.4rem; font-weight: 800; color: #0d9488; margin-left: 8px;">00</span>s remaining
+                        <button id="somaticTimerStop" class="btn-secondary" style="margin-left: 16px; padding: 4px 12px; font-size: 0.85rem;">Stop</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: GRATITUDE & REFRAMING -->
+            <section id="tab-journal" class="tab-panel">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <h2 class="tool-title">Realistic Micro-Gratitude & Prompts</h2>
+                        <p class="tool-desc">Avoid toxic positivity. Genuine gratitude focuses on micro-comforts and tangible conveniences.</p>
+                    </div>
+
+                    <div class="game-display" style="padding: 24px; text-align: left;">
+                        <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--teal-accent); letter-spacing: 0.05em;">Today's Reflection Framework</span>
+                        <div id="promptDisplay" style="font-size: 1.15rem; font-weight: 600; color: var(--navy-dark); margin: 8px 0 12px;">
+                            "Name one basic convenience you used today that you did not have to personally build or invent (e.g., hot running water, refrigerator, insulated shelter)."
+                        </div>
+                        <p id="promptSub" style="font-size: 0.9rem; color: var(--text-muted);">Notice the physiological sensation of security that comes with recognizing this utility.</p>
+                    </div>
+
+                    <button id="newPromptBtn" class="btn-primary">Generate Another Reflection</button>
+                </div>
+            </section>
+
+            <!-- TAB 6: SEARCHABLE SKILLS LIBRARY -->
+            <section id="tab-library" class="tab-panel">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <h2 class="tool-title">Quick Coping Skills Directory</h2>
+                        <p class="tool-desc">Filter evidence-based coping skills by category or keyword.</p>
+                    </div>
+
+                    <div class="search-bar-wrap">
+                        <input type="text" id="skillSearch" class="search-input" placeholder="Search coping skills (e.g., panic, sleep, physical, calm)...">
+                        <select id="skillCategory" class="filter-select">
+                            <option value="">All Categories</option>
+                            <option value="breathing">Breathing</option>
+                            <option value="somatic">Somatic & Body</option>
+                            <option value="cognitive">Cognitive & Mental</option>
+                            <option value="distraction">Distraction</option>
+                        </select>
+                    </div>
+
+                    <div id="skillsContainer" class="skills-grid">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <p><strong>Airdrie Community Resources Directory & Coping Companion</strong></p>
+            <p style="margin-top: 6px;">For mental health navigation, local food, or shelter, view the <a href="index.html">Main Directory</a> or call <strong>211</strong> (Community Care) or <strong>988</strong> (Suicide Crisis).</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPT -->
+    <script>
+        "use strict";
+
+        // ==========================================
+        // 1. TAB CONTROLLER
+        // ==========================================
+        const tabButtons = document.querySelectorAll(".tab-btn");
+        const tabPanels = document.querySelectorAll(".tab-panel");
+
+        tabButtons.forEach(button => {
+            button.addEventListener("click", () => {
+                tabButtons.forEach(btn => btn.classList.remove("active"));
+                tabPanels.forEach(panel => panel.classList.remove("active"));
+
+                button.classList.add("active");
+                const targetId = `tab-${button.dataset.tab}`;
+                const targetPanel = document.getElementById(targetId);
+                if (targetPanel) targetPanel.classList.add("active");
+            });
+        });
+
+        // ==========================================
+        // 2. BREATHING PACER ENGINE
+        // ==========================================
+        const pacerCircle = document.getElementById("pacerCircle");
+        const pacerPhase = document.getElementById("pacerPhase");
+        const pacerCount = document.getElementById("pacerCount");
+        const pacerToggleBtn = document.getElementById("pacerToggleBtn");
+        const pacerResetBtn = document.getElementById("pacerResetBtn");
+        const pacerInstructions = document.getElementById("pacerInstructions");
+        const modeButtons = document.querySelectorAll(".mode-btn");
+
+        let pacerRunning = false;
+        let pacerInterval = null;
+        let currentMode = "box";
+        let stepIndex = 0;
+        let secondsRemaining = 0;
+
+        const protocols = {
+            box: {
+                name: "Box Breathing",
+                desc: "Equal duration for each stage. Calms the autonomic system and balances carbon dioxide levels.",
+                steps: [
+                    { name: "Inhale", duration: 4, scale: 1.5 },
+                    { name: "Hold", duration: 4, scale: 1.5 },
+                    { name: "Exhale", duration: 4, scale: 1.0 },
+                    { name: "Hold Empty", duration: 4, scale: 1.0 }
+                ]
+            },
+            sleep: {
+                name: "4-7-8 Relax & Sleep",
+                desc: "Extended exhalation forces the parasympathetic (rest and digest) vagus nerve to engage.",
+                steps: [
+                    { name: "Inhale (Nose)", duration: 4, scale: 1.5 },
+                    { name: "Hold", duration: 7, scale: 1.5 },
+                    { name: "Exhale (Mouth)", duration: 8, scale: 1.0 }
+                ]
+            },
+            sigh: {
+                name: "Physiological Sigh",
+                desc: "Two sharp inhales reinflate collapsed alveoli in the lungs; long sigh removes CO2 immediately.",
+                steps: [
+                    { name: "Deep Inhale", duration: 3, scale: 1.3 },
+                    { name: "Sharp Top-off", duration: 1, scale: 1.6 },
+                    { name: "Long Slow Sigh", duration: 6, scale: 1.0 }
+                ]
+            }
+        };
+
+        function updatePacerDisplay() {
+            const step = protocols[currentMode].steps[stepIndex];
+            pacerPhase.textContent = step.name;
+            pacerCount.textContent = secondsRemaining;
+            pacerCircle.style.transform = `scale(${step.scale})`;
+            pacerCircle.style.transition = `transform ${step.duration}s ease-in-out`;
+        }
+
+        function pacerTick() {
+            if (secondsRemaining > 1) {
+                secondsRemaining--;
+                pacerCount.textContent = secondsRemaining;
+            } else {
+                stepIndex = (stepIndex + 1) % protocols[currentMode].steps.length;
+                secondsRemaining = protocols[currentMode].steps[stepIndex].duration;
+                updatePacerDisplay();
+            }
+        }
+
+        function startPacer() {
+            if (pacerRunning) return;
+            pacerRunning = true;
+            pacerToggleBtn.textContent = "Pause";
+            pacerToggleBtn.classList.replace("btn-primary", "btn-secondary");
+
+            stepIndex = 0;
+            secondsRemaining = protocols[currentMode].steps[0].duration;
+            updatePacerDisplay();
+            pacerInterval = setInterval(pacerTick, 1000);
+        }
+
+        function pausePacer() {
+            pacerRunning = false;
+            pacerToggleBtn.textContent = "Resume";
+            pacerToggleBtn.classList.replace("btn-secondary", "btn-primary");
+            clearInterval(pacerInterval);
+        }
+
+        function resetPacer() {
+            pausePacer();
+            pacerToggleBtn.textContent = "Start Exercise";
+            pacerPhase.textContent = "Ready";
+            pacerCount.textContent = "--";
+            pacerCircle.style.transform = "scale(1)";
+            pacerCircle.style.transition = "transform 0.5s ease";
+        }
+
+        pacerToggleBtn.addEventListener("click", () => {
+            if (pacerRunning) pausePacer();
+            else startPacer();
+        });
+
+        pacerResetBtn.addEventListener("click", resetPacer);
+
+        modeButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                modeButtons.forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                currentMode = btn.dataset.mode;
+                pacerInstructions.textContent = protocols[currentMode].desc;
+                resetPacer();
+            });
+        });
+
+        // ==========================================
+        // 3. SENSORY GROUNDING CHECKLIST
+        // ==========================================
+        const sensoryCheckboxes = document.querySelectorAll('.sensory-item input[type="checkbox"]');
+        const groundingStatus = document.getElementById("groundingStatus");
+        const resetGroundingBtn = document.getElementById("resetGroundingBtn");
+
+        function updateGroundingStatus() {
+            let checkedCount = 0;
+            sensoryCheckboxes.forEach(cb => {
+                const parent = cb.closest(".sensory-item");
+                if (cb.checked) {
+                    checkedCount++;
+                    parent.classList.add("checked");
+                } else {
+                    parent.classList.remove("checked");
+                }
+            });
+
+            if (checkedCount === 5) {
+                groundingStatus.textContent = "✓ Scan Complete. Well done pausing for yourself.";
+                groundingStatus.style.color = "#0d9488";
+            } else {
+                groundingStatus.textContent = `${checkedCount} of 5 anchored`;
+                groundingStatus.style.color = "var(--text-muted)";
+            }
+        }
+
+        sensoryCheckboxes.forEach(cb => cb.addEventListener("change", updateGroundingStatus));
+
+        resetGroundingBtn.addEventListener("click", () => {
+            sensoryCheckboxes.forEach(cb => {
+                cb.checked = false;
+                cb.closest(".sensory-item").classList.remove("checked");
+            });
+            updateGroundingStatus();
+        });
+
+        // ==========================================
+        // 4. COGNITIVE GAMES
+        // ==========================================
+        const categories = [
+            "Canadian Cities or Towns",
+            "Dog Breeds",
+            "Foods you can eat with a spoon",
+            "Bands or Musical Artists",
+            "Items you find in a hardware store",
+            "Movies with one-word titles",
+            "Colors & Shades (e.g. Amber, Beige, Cyan)",
+            "Things that produce heat",
+            "Things you see on a road trip",
+            "Board games or card games"
+        ];
+        const categoryDisplay = document.getElementById("categoryDisplay");
+        document.getElementById("newCategoryBtn").addEventListener("click", () => {
+            const random = categories[Math.floor(Math.random() * categories.length)];
+            categoryDisplay.textContent = random;
+        });
+
+        let currentMath = 100;
+        const mathDisplay = document.getElementById("mathDisplay");
+        const mathSub = document.getElementById("mathSub");
+        document.getElementById("mathNextBtn").addEventListener("click", () => {
+            if (currentMath > 2) {
+                currentMath -= 7;
+                mathDisplay.textContent = currentMath;
+                mathSub.textContent = `100 - 7 = ${currentMath}`;
+            } else {
+                mathDisplay.textContent = "Finished!";
+                mathSub.textContent = "You reached the end of the countdown!";
+            }
+        });
+        document.getElementById("mathResetBtn").addEventListener("click", () => {
+            currentMath = 100;
+            mathDisplay.textContent = "100";
+            mathSub.textContent = "Click Next to subtract 7";
+        });
+
+        const colorPrompts = [
+            { text: "Find 4 Blue Items", color: "#2563eb" },
+            { text: "Find 3 Wooden Objects", color: "#b45309" },
+            { text: "Find 5 Circular Shapes", color: "#0d9488" },
+            { text: "Find 4 Soft Textures", color: "#7c3aed" },
+            { text: "Find 3 Metal Surfaces", color: "#475569" },
+            { text: "Find 4 Green Things", color: "#16a34a" }
+        ];
+        const colorDisplay = document.getElementById("colorDisplay");
+        document.getElementById("newColorBtn").addEventListener("click", () => {
+            const prompt = colorPrompts[Math.floor(Math.random() * colorPrompts.length)];
+            colorDisplay.textContent = prompt.text;
+            colorDisplay.style.color = prompt.color;
+        });
+
+        // ==========================================
+        // 5. SOMATIC TIMERS
+        // ==========================================
+        const somaticTimerBox = document.getElementById("somaticTimerBox");
+        const somaticTimerName = document.getElementById("somaticTimerName");
+        const somaticTimerCount = document.getElementById("somaticTimerCount");
+        const somaticTimerStop = document.getElementById("somaticTimerStop");
+        let somaticTimerInterval = null;
+
+        document.querySelectorAll(".somatic-timer-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const seconds = parseInt(btn.dataset.time, 10);
+                const title = btn.closest(".somatic-card").querySelector(".somatic-title").textContent;
+                startSomaticTimer(title, seconds);
+            });
+        });
+
+        function startSomaticTimer(title, duration) {
+            clearInterval(somaticTimerInterval);
+            somaticTimerBox.style.display = "block";
+            somaticTimerName.textContent = title;
+            let remaining = duration;
+            somaticTimerCount.textContent = remaining;
+
+            somaticTimerInterval = setInterval(() => {
+                remaining--;
+                somaticTimerCount.textContent = remaining;
+                if (remaining <= 0) {
+                    clearInterval(somaticTimerInterval);
+                    somaticTimerCount.textContent = "Done!";
+                }
+            }, 1000);
+        }
+
+        somaticTimerStop.addEventListener("click", () => {
+            clearInterval(somaticTimerInterval);
+            somaticTimerBox.style.display = "none";
+        });
+
+        // ==========================================
+        // 6. GRATITUDE & PROMPTS GENERATOR
+        // ==========================================
+        const prompts = [
+            { title: "One Micro-Comfort", desc: "Notice one small physical comfort right now: your seat, a pair of warm socks, or an agreeable temperature in the room." },
+            { title: "A Relieved Chore", desc: "Identify one task or annoying event you finished earlier this week that you no longer have to worry about today." },
+            { title: "A Stranger's Work", desc: "Think of an everyday item you used (like a clean mug, hot water heater, or street light) and appreciate the invisible humans who built it." },
+            { title: "Sensory Appreciation", desc: "Identify a specific sound, texture, or scent in your environment that is quiet and non-threatening." },
+            { title: "Mental Subtraction", desc: "Imagine your day without reliable internet or running electricity, then feel the relief of returning to having it right now." }
+        ];
+        const promptDisplay = document.getElementById("promptDisplay");
+        const promptSub = document.getElementById("promptSub");
+        document.getElementById("newPromptBtn").addEventListener("click", () => {
+            const p = prompts[Math.floor(Math.random() * prompts.length)];
+            promptDisplay.textContent = `"${p.title}"`;
+            promptSub.textContent = p.desc;
+        });
+
+        // ==========================================
+        // 7. SEARCHABLE SKILLS DIRECTORY
+        // ==========================================
+        const skillsData = [
+            { id: "box-breath", category: "breathing", name: "Box Breathing", desc: "4s inhale, 4s hold, 4s exhale, 4s hold empty. Regulates high pulse and racing thoughts." },
+            { id: "phys-sigh", category: "breathing", name: "Physiological Sigh", desc: "Two quick inhales through the nose followed by an extended sigh out the mouth. Fastest way to reduce acute stress." },
+            { id: "4-7-8", category: "breathing", name: "4-7-8 Relaxation", desc: "Inhale 4s, hold 7s, exhale 8s. Forces parasympathetic activation to assist with insomnia and evening anxiety." },
+            { id: "dive-reflex", category: "somatic", name: "Mammalian Dive Reflex", desc: "Applying ice water or an ice pack across eyes and cheeks stimulates the vagus nerve and mechanically drops heart rate." },
+            { id: "wall-push", category: "somatic", name: "Wall Push Isometric", desc: "Push with maximum force against a wall for 30s. Metabolizes adrenaline spikes when you feel hyper-aroused." },
+            { id: "butterfly", category: "somatic", name: "Butterfly Tapping", desc: "Bilateral rhythmic tapping across your collarbones to gently soothe acute panic and integrate emotional distress." },
+            { id: "serial-7", category: "cognitive", name: "Serial 7s Countdown", desc: "Subtracting 7 starting from 100 engages working memory and diverts brain activity from the emotional amygdala." },
+            { id: "alphabet-scan", category: "cognitive", name: "Alphabet Category Game", desc: "Naming an animal or city for every letter A–Z interrupts racing loops by demanding structured recall." },
+            { id: "five-senses", category: "distraction", name: "5-4-3-2-1 Sensory Method", desc: "Scan 5 sights, 4 physical textures, 3 sounds, 2 scents, and 1 taste to pull mind away from panic back into the room." },
+            { id: "ice-cube", category: "distraction", name: "Ice Cube Sensory Shock", desc: "Holding an ice cube in your palm creates an intense tactile sensation that safely snaps focus away from panic." },
+            { id: "mental-sub", category: "cognitive", name: "Mental Subtraction Reframing", desc: "Imagine losing a basic luxury (e.g. running tap water) for an hour, then feeling the relief of its presence." }
+        ];
+
+        const skillsContainer = document.getElementById("skillsContainer");
+        const skillSearch = document.getElementById("skillSearch");
+        const skillCategory = document.getElementById("skillCategory");
+
+        function renderSkills() {
+            const query = skillSearch.value.trim().toLowerCase();
+            const cat = skillCategory.value;
+
+            const filtered = skillsData.filter(item => {
+                const matchCat = !cat || item.category === cat;
+                const matchQuery = !query || 
+                    item.name.toLowerCase().includes(query) || 
+                    item.desc.toLowerCase().includes(query) || 
+                    item.category.toLowerCase().includes(query);
+                return matchCat && matchQuery;
+            });
+
+            if (filtered.length === 0) {
+                skillsContainer.innerHTML = '<p style="grid-column: 1/-1; color: var(--text-muted); text-align: center; padding: 20px;">No matching coping skills found.</p>';
+                return;
+            }
+
+            skillsContainer.innerHTML = filtered.map(skill => `
+                <article class="skill-card">
+                    <div>
+                        <span class="skill-tag-pill">${skill.category}</span>
+                        <h3 class="skill-name">${skill.name}</h3>
+                        <p class="skill-description">${skill.desc}</p>
+                    </div>
+                </article>
+            `).join("");
+        }
+
+        skillSearch.addEventListener("input", renderSkills);
+        skillCategory.addEventListener("change", renderSkills);
+
+        // Initial render
+        renderSkills();
+    </script>
+</body>
+</html>
