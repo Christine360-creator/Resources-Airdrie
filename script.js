@@ -5,7 +5,7 @@
 
 "use strict";
 
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBAoUdhRVsTr4vIEgFWNbAl40_L8DlgBZMAuG4lU9YDvt__SKGM7Ck6bfl0CCehPVGlpTxE9w6bHCQ/pub?gid=0&single=true&output=csv";
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQBAoUdhRVsTr4vIEgFWNbAl40_L8DlgBZMAuG4lU9YDvt__SKGM7Ck6bfl0CCehPVGlpTxE9w6bHCQ/pub?gid=13732402&single=true&output=csv";
 
 // Elements
 const searchInput = document.getElementById("resource-search");
@@ -51,7 +51,8 @@ function escapeHTML(value) {
 
 function splitList(value) {
     return String(value ?? "")
-        .split(/[,|;]/)
+        .replace(/["']/g, "")
+        .split(/[|;]/)
         .map(item => item.trim())
         .filter(Boolean);
 }
