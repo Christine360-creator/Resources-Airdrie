@@ -1212,11 +1212,13 @@
             <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 16px;">
                 Rest your eyes and observe the layered motion. Match your breathing gently with the crest and fall of the tide.
             </p>
-            <div class="canvas-controls">
-                <button id="toggleWavesBtn" class="pill-btn active">Pause Waves</button>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Calm Frequency: ~6 cycles/min</span>
-            </div>
-        </div>
+         <div class="canvas-controls">
+    <div style="display: flex; gap: 8px;">
+        <button id="toggleWavesBtn" class="pill-btn active">Pause Waves</button>
+        <button id="toggleWaveSizeBtn" class="pill-btn">Bigger Waves</button>
+    </div>
+    <span style="font-size: 0.85rem; color: var(--text-muted);">Calm Frequency: ~6 cycles/min</span>
+</div>
     </dialog>
 
     <!-- MODAL 2: Random Self-Care -->
@@ -1714,23 +1716,28 @@
         // ==========================================
         // 4. "SURPRISE ME!" RANDOM PICKER
         // ==========================================
-        const surpriseMeBtn = document.getElementById("surpriseMeBtn");
-        surpriseMeBtn.addEventListener("click", () => {
-            const cardArray = Array.from(allCards);
-            const randomCard = cardArray[Math.floor(Math.random() * cardArray.length)];
-            const modalId = randomCard.dataset.modal;
-            openModal(modalId, surpriseMeBtn);
-        });
+      // ==========================================
+// 4. "SURPRISE ME!" RANDOM PICKER (NO LOGGING / NO HISTORY)
+// ==========================================
+const surpriseMeBtn = document.getElementById("surpriseMeBtn");
+surpriseMeBtn.addEventListener("click", () => {
+    const cardArray = Array.from(allCards);
+    const randomCard = cardArray[Math.floor(Math.random() * cardArray.length)];
+    const modalId = randomCard.dataset.modal;
+    openModal(modalId, surpriseMeBtn);
+});
 
         // ==========================================
         // 5. TOOL 1: WATCH THE WAVES (CANVAS ANIMATION)
         // ==========================================
-        const wavesCanvas = document.getElementById("wavesCanvas");
+     const wavesCanvas = document.getElementById("wavesCanvas");
         const ctx = wavesCanvas.getContext("2d");
         const toggleWavesBtn = document.getElementById("toggleWavesBtn");
+        const toggleWaveSizeBtn = document.getElementById("toggleWaveSizeBtn");
         let wavesAnimationId = null;
         let wavesRunning = false;
         let waveStep = 0;
+        let waveScale = 1;
 
         function resizeCanvas() {
             const wrap = wavesCanvas.parentElement;
@@ -1749,9 +1756,9 @@
 
             // Draw 3 layered sinusoidal harmonic waves
             const layers = [
-                { color: "rgba(13, 148, 136, 0.45)", length: 0.012, speed: waveStep, amp: 26, y: height * 0.58 },
-                { color: "rgba(2, 132, 199, 0.4)", length: 0.016, speed: waveStep * 0.8 + 1, amp: 20, y: height * 0.65 },
-                { color: "rgba(56, 189, 248, 0.5)", length: 0.009, speed: waveStep * 1.2 + 2, amp: 16, y: height * 0.72 }
+                { color: "rgba(13, 148, 136, 0.45)", length: 0.012, speed: waveStep, amp: 26 * waveScale, y: height * 0.58 },
+                { color: "rgba(2, 132, 199, 0.4)", length: 0.016, speed: waveStep * 0.8 + 1, amp: 20 * waveScale, y: height * 0.65 },
+                { color: "rgba(56, 189, 248, 0.5)", length: 0.009, speed: waveStep * 1.2 + 2, amp: 16 * waveScale, y: height * 0.72 }
             ];
 
             layers.forEach(layer => {
@@ -1788,6 +1795,20 @@
             else startWaves();
         });
 
+        if (toggleWaveSizeBtn) {
+            toggleWaveSizeBtn.addEventListener("click", () => {
+                if (waveScale === 1) {
+                    waveScale = 1.8;
+                    toggleWaveSizeBtn.textContent = "Normal Waves";
+                    toggleWaveSizeBtn.classList.add("active");
+                } else {
+                    waveScale = 1;
+                    toggleWaveSizeBtn.textContent = "Bigger Waves";
+                    toggleWaveSizeBtn.classList.remove("active");
+                }
+            });
+        }
+
         // ==========================================
         // 6. TOOL 2: RANDOM SELF-CARE GENERATOR
         // ==========================================
@@ -1798,6 +1819,13 @@
             "Drop your shoulders 2 inches down and away from your ears right now.",
             "Wash your hands with warm water and pleasant soap, paying attention to the lather.",
             "Put your phone face-down for 3 minutes and stretch your neck side to side."
+            "Take three deep breaths: Inhale slowly through your nose, hold for a moment, and exhale completely through your mouth.",
+            "Cancel or postpone one thing today that isn't on fire. You don't need an elaborate excuse.",
+            "Bite into something sour (lemon, hot sauce, sour candy) to shock your brain out of a loop.",
+            "Press your bare feet firmly into the floor and focus entirely on the feeling of the ground supporting you.",
+            "Rub your palms together quickly for 10 seconds until they feel warm, then cup them over your closed eyes."
+            
+            
         ];
         const selfCareText = document.getElementById("selfCareText");
         document.getElementById("newSelfCareBtn").addEventListener("click", () => {
@@ -1813,6 +1841,27 @@
             "\"It is completely acceptable to pause and rest without having to earn it first.\"",
             "\"Being overwhelmed is a normal physiological signal that you are carrying too much, not a personal flaw.\"",
             "\"You have navigated difficult days before; you can navigate this one hour at a time.\"",
+            "I am allowed to stop doing things that can wait until tomorrow.",
+            "A half-assed job that actually gets finished beats a masterpiece trapped in your head.",
+    "Your nervous system is lying to you: this is a deadline, not an emergency room.",
+    "You don't need to feel confident or motivated today. You just need to finish this one step.",
+    "Most of the things you're juggling are plastic. If you drop them, they won't shatter.",
+    "You don't owe anyone a rapid reply. Let the notification sit.",
+            
+            "I am already enough, exactly as I am in this moment.",
+"My worth is not tied to my productivity or how much I get done.",
+"I do not need to prove my value to anyone, including myself.",
+"I am allowed to exist without constantly trying to fix or improve myself.",
+"I am doing the best I can with the energy I have today, and that is enough.",
+"I am worthy of respect, kindness, and rest, unconditionally.",
+            "I am already enough, exactly as I am in this moment.",
+"Rest is a biological requirement, not a reward I have to earn.",
+"I do not need to be productive every single hour of the day.",
+"I can pause right now without needing an explanation or an excuse.",
+            "It is okay if today didn't go perfectly; I can try again when I am ready.",
+
+
+            
             "\"Notice that right in this immediate 5 seconds, your body is breathing and safe.\""
         ];
         const affirmationText = document.getElementById("affirmationText");
@@ -1853,6 +1902,12 @@
             "Find 3 different physical textures within arm's reach (e.g., denim, cold glass, smooth wood).",
             "Listen closely: identify the most distant sound you can hear outside this room.",
             "Look for 4 items in your visual field that have the color blue or green.",
+            "Notice where your body makes contact with your chair or floor right now.",
+"Focus entirely on the rise and fall of your chest for just two breaths.",
+"Listen for the quietest sound inside this room and track it for 5 seconds.",
+            "Notice the exact sensation of air entering your nostrils versus leaving your mouth.",
+"Place a hand on your stomach and feel it expand and contract as you breathe.",
+"Hold an object near you and notice its temperature—is it warm, cool, or neutral?",
             "Touch your thumb to each fingertip in sequence: index, middle, ring, pinky. Notice each press."
         ];
         const mindfulText = document.getElementById("mindfulText");
@@ -1864,22 +1919,39 @@
         // ==========================================
         // 10. TOOL 6: GRATITUDE REFLECTION
         // ==========================================
-        const saveGratitudeBtn = document.getElementById("saveGratitudeBtn");
-        const clearGratitudeBtn = document.getElementById("clearGratitudeBtn");
-        const gratitudeFeedback = document.getElementById("gratitudeFeedback");
-        const g1 = document.getElementById("g1");
-        const g2 = document.getElementById("g2");
-        const g3 = document.getElementById("g3");
+      // ==========================================
+// 10. TOOL 6: GRATITUDE REFLECTION (ZERO RETENTION SCRATCHPAD)
+// ==========================================
+const saveGratitudeBtn = document.getElementById("saveGratitudeBtn");
+const clearGratitudeBtn = document.getElementById("clearGratitudeBtn");
+const gratitudeFeedback = document.getElementById("gratitudeFeedback");
+const g1 = document.getElementById("g1");
+const g2 = document.getElementById("g2");
+const g3 = document.getElementById("g3");
+const gratitudeModal = document.getElementById("modal-gratitude");
 
-        saveGratitudeBtn.addEventListener("click", () => {
-            gratitudeFeedback.style.display = "block";
-            setTimeout(() => { gratitudeFeedback.style.display = "none"; }, 3000);
-        });
+// Wipe inputs clean function
+function wipeGratitude() {
+    if (g1) g1.value = "";
+    if (g2) g2.value = "";
+    if (g3) g3.value = "";
+    if (gratitudeFeedback) gratitudeFeedback.style.display = "none";
+}
 
-        clearGratitudeBtn.addEventListener("click", () => {
-            g1.value = ""; g2.value = ""; g3.value = "";
-            gratitudeFeedback.style.display = "none";
-        });
+// User clicks button — provides brief feedback, but saves nothing anywhere
+saveGratitudeBtn.addEventListener("click", () => {
+    gratitudeFeedback.textContent = "✓ Acknowledged. Nothing is saved or stored.";
+    gratitudeFeedback.style.display = "block";
+    setTimeout(() => { gratitudeFeedback.style.display = "none"; }, 2500);
+});
+
+// Clear manually
+clearGratitudeBtn.addEventListener("click", wipeGratitude);
+
+// Automatically wipe everything clean whenever the user closes the modal
+if (gratitudeModal) {
+    gratitudeModal.addEventListener("close", wipeGratitude);
+}
 
         // ==========================================
         // 11. TOOL 7: PICK YOUR WEATHER
